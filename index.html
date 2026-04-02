@@ -146,21 +146,55 @@
 
         /* 模态框 */
         .modal-overlay, .achievement-modal-overlay, .level-pass-modal, .history-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0.2s, opacity 0.2s;
-        }
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0.2s, opacity 0.2s;
+        gap: 20px;
+    }
+    .modal-container {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+    }
+    .context-modal {
+        background: #fffef5;
+        width: 90%;
+        max-width: 400px;
+        border-radius: 64px;
+        padding: 32px 28px;
+        box-shadow: 0 30px 50px rgba(0,0,0,0.5);
+        border-top: 12px solid #e67e22;
+        animation: fadeSlideUp 0.3s ease-out;
+    }
+    .context-modal h3 {
+        color: #b64926;
+        margin-bottom: 16px;
+        font-size: 1.3rem;
+    }
+    .context-content {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #2c3e2f;
+        margin-bottom: 20px;
+    }
+    .context-image {
+        width: 100%;
+        max-height: 200px;
+        object-fit: contain;
+        border-radius: 16px;
+        margin-top: 16px;
+    }
         .modal-overlay.active, .achievement-modal-overlay.active, .level-pass-modal.active, .history-modal-overlay.active {
             visibility: visible;
             opacity: 1;
@@ -380,12 +414,18 @@
 
 <!-- 问题模态框 -->
 <div id="questionModal" class="modal-overlay">
-    <div class="question-modal">
-        <div class="modal-question" id="modalQuestion">加载中...</div>
-        <div class="modal-options" id="modalOptions"></div>
-        <div class="modal-explanation" id="modalExplanation">🌊 择选真理，红船载思想前行～</div>
-        <button class="next-question-btn" id="nextQuestionBtn" style="display: none; background: #2c7a4d; color: white; border: none; padding: 10px 16px; border-radius: 40px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 12px; transition: 0.2s;">➡️ 下一题</button>
-        <button class="exit-in-quiz" id="exitDuringQuizBtn">🚪 中断征程 · 退出</button>
+    <div class="modal-container">
+        <div class="question-modal">
+            <div class="modal-question" id="modalQuestion">加载中...</div>
+            <div class="modal-options" id="modalOptions"></div>
+            <div class="modal-explanation" id="modalExplanation">🌊 择选真理，红船载思想前行～</div>
+            <button class="next-question-btn" id="nextQuestionBtn" style="display: none; background: #2c7a4d; color: white; border: none; padding: 10px 16px; border-radius: 40px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 12px; transition: 0.2s;">➡️ 下一题</button>
+            <button class="exit-in-quiz" id="exitDuringQuizBtn">🚪 中断征程 · 退出</button>
+        </div>
+        <div class="context-modal">
+            <h3>📜 时代背景</h3>
+            <div class="context-content" id="contextContent">加载中...</div>
+        </div>
     </div>
 </div>
 
@@ -394,7 +434,6 @@
     <div class="level-pass-card">
         <h2 style="color:#b64926; margin-bottom:12px;">✨ 新时代航程 · 思想过关 ✨</h2>
         <p id="levelPassMessage" style="font-size:1.2rem; margin-bottom:16px;">第一关 · 理论根基</p>
-        <p>你已深刻领悟此关思想精髓，理论自信愈发坚定，新时代征程再进一步。</p>
         <div class="pass-buttons">
             <button id="continueToNextLevelBtn" class="pass-btn continue-btn">🏮 继往开来 · 新时代征程</button>
             <button id="quitAfterLevelBtn" class="pass-btn quit-pass-btn">🌙 暂歇归港</button>
@@ -441,75 +480,31 @@
     </div>
 </div>
 
+<!-- 征程开始模态框 -->
+<div id="startJourneyModal" class="level-pass-modal">
+    <div class="level-pass-card">
+        <h2 style="color:#b64926; margin-bottom:24px;">✨ 思想航程 · 序章 ✨</h2>
+        <p style="font-size:1.1rem; line-height:1.6; margin-bottom:32px; text-align:left;">这一段河流穿行于崇山峻岭之间，众多支流在此交汇。历史上，曾有多条"河道"可供选择——改良主义、资本主义、无政府主义……但最终只有一条河道让水流奔涌而出，形成了今天的浩荡之势。</p>
+        <button id="startJourneyBtn" class="pass-btn continue-btn" style="background:#2c7a4d;">🚩 开始征程</button>
+    </div>
+</div>
+
 <script>
-    // ======================= 精编宏大题典 (共56道，文化自信·盛世华章) =======================
+    // ======================= 精编宏大题典  =======================
     const QUESTION_SET = [
-        // ---------- level 1 (基础文脉，共18题) ----------
-        { text: "坚定文化自信，其核心是坚定什么？", options: ["道路自信", "理论自信", "制度自信", "中国特色社会主义文化自信"], correct: 3, level: 1, explanation: "文化自信是更基础、更广泛、更深厚的自信。坚定文化自信，就是坚定中国特色社会主义文化自信。" },
-        { text: "社会主义核心价值观中，个人层面的价值准则是？", options: ["富强、民主、文明、和谐", "自由、平等、公正、法治", "爱国、敬业、诚信、友善", "爱国、创新、包容、厚德"], correct: 2, level: 1, explanation: "社会主义核心价值观个人层面：爱国、敬业、诚信、友善。" },
-        { text: "发展中国特色社会主义文化，要以什么为指导？", options: ["儒家思想", "西方文化思潮", "马克思主义", "实用主义"], correct: 2, level: 1, explanation: "发展中国特色社会主义文化，必须坚持马克思主义在意识形态领域的指导地位。" },
-        { text: "“不忘本来、吸收外来、面向未来”指的是？", options: ["文化建设方针", "经济改革方针", "外交政策", "教育方针"], correct: 0, level: 1, explanation: "这是推动中华优秀传统文化创造性转化、创新性发展的重要方针。" },
-        { text: "中华民族的“根”和“魂”是指？", options: ["中华优秀传统文化", "革命文化", "社会主义先进文化", "西方文明"], correct: 0, level: 1, explanation: "中华优秀传统文化是中华民族的“根”和“魂”，是文化自信的源泉。" },
-        { text: "新时代文艺创作的根本方向是？", options: ["为人民服务，为社会主义服务", "为资本服务", "为票房服务", "为评奖服务"], correct: 0, level: 1, explanation: "坚持“二为”方向是社会主义文艺的根本方向。" },
-        { text: "“红船精神”的核心内涵是？", options: ["开天辟地、敢为人先", "自力更生、艰苦奋斗", "实事求是、群众路线", "谦虚谨慎、戒骄戒躁"], correct: 0, level: 1, explanation: "红船精神是开天辟地、敢为人先的首创精神，坚定理想、百折不挠的奋斗精神。" },
-        { text: "下列哪项是中华文明的重要标识？", options: ["汉字", "拉丁字母", "阿拉伯数字", "希腊哲学"], correct: 0, level: 1, explanation: "汉字是中华文明的重要标识，承载着千年文化基因。" },
-        { text: "“天下兴亡，匹夫有责”体现了哪种精神？", options: ["爱国主义", "个人主义", "享乐主义", "虚无主义"], correct: 0, level: 1, explanation: "这句名言彰显了深厚的家国情怀和担当意识。" },
-        { text: "我国非物质文化遗产保护的原则是？", options: ["抢救第一、保护为主", "商业开发优先", "全盘西化", "放任自流"], correct: 0, level: 1, explanation: "贯彻“保护为主、抢救第一、合理利用、传承发展”的方针。" },
-        { text: "民族精神的核心是什么？", options: ["爱国主义", "改革创新", "团结统一", "勤劳勇敢"], correct: 0, level: 1, explanation: "爱国主义是民族精神的核心，贯穿中华民族发展始终。" },
-        { text: "时代精神的核心是？", options: ["改革创新", "爱国主义", "自强不息", "厚德载物"], correct: 0, level: 1, explanation: "改革创新是时代精神的核心，推动社会不断向前。" },
-        { text: "“天人合一”思想主要体现了中华文化的什么理念？", options: ["人与自然和谐", "征服自然", "崇拜鬼神", "科技至上"], correct: 0, level: 1, explanation: "天人合一主张人与自然和谐共生，是生态文明的古老智慧。" },
-        { text: "中国古典四大名著中，哪一部被誉为“封建社会百科全书”？", options: ["红楼梦", "西游记", "水浒传", "三国演义"], correct: 0, level: 1, explanation: "《红楼梦》以宏大的叙事展现了封建社会的丰富图景。" },
-        { text: "被誉为“万园之园”的皇家园林是？", options: ["圆明园", "颐和园", "拙政园", "留园"], correct: 0, level: 1, explanation: "圆明园曾是中国古代园林艺术的巅峰。" },
-        { text: "“己所不欲，勿施于人”出自哪部经典？", options: ["论语", "孟子", "大学", "中庸"], correct: 0, level: 1, explanation: "这是孔子“恕”道的核心表述，出自《论语》。" },
-        { text: "以下哪个节日属于中国四大传统节日之一？", options: ["中秋节", "圣诞节", "情人节", "感恩节"], correct: 0, level: 1, explanation: "春节、清明、端午、中秋是中国四大传统节日。" },
-        { text: "中国高铁“复兴号”体现了什么精神？", options: ["自主创新、领跑世界", "封闭保守", "模仿依赖", "急功近利"], correct: 0, level: 1, explanation: "复兴号彰显了中国制造、中国创造的非凡成就。" },
-        { text: "中国特色社会主义最本质的特征是什么？", options: ["中国共产党领导", "人民民主专政", "改革开放", "社会主义市场经济"], correct: 0, level: 1, explanation: "中国共产党领导是中国特色社会主义最本质的特征，是中国特色社会主义制度的最大优势。" },
-        { text: "中国特色社会主义制度的最大优势是？", options: ["中国共产党领导", "集中力量办大事", "人民当家作主", "依法治国"], correct: 0, level: 1, explanation: "中国共产党的领导是中国特色社会主义制度的最大优势，党是最高政治领导力量。" },
-        { text: "“五位一体”总体布局包括哪五个方面？", options: ["经济、政治、文化、社会、生态文明", "工业、农业、国防、科技、教育", "改革、发展、稳定、内政、外交", "城市、农村、东部、西部、中部"], correct: 0, level: 1, explanation: "“五位一体”是经济建设、政治建设、文化建设、社会建设、生态文明建设全面推进。" },
-        { text: "“四个全面”战略布局的最新表述是？", options: ["全面建设社会主义现代化国家、全面深化改革、全面依法治国、全面从严治党", "全面建成小康社会、全面深化改革、全面依法治国、全面从严治党", "全面建设社会主义现代化强国、全面改革开放、全面依法治国、全面从严治党", "全面建设小康社会、全面创新、全面法治、全面党建"], correct: 0, level: 1, explanation: "党的十九届五中全会将“全面建成小康社会”发展为“全面建设社会主义现代化国家”，构成了新的“四个全面”战略布局。" },
-        { text: "新发展理念的内涵是？", options: ["创新、协调、绿色、开放、共享", "科学、发展、改革、稳定、和谐", "质量、效益、公平、可持续、安全", "创造、协调、生态、包容、共赢"], correct: 0, level: 1, explanation: "创新、协调、绿色、开放、共享的新发展理念，是引领我国发展全局深刻变革的科学指引。" },
-        // ---------- level 2 (薪火相传，共19题) ----------
-        { text: "意识形态工作的根本任务是？", options: ["巩固马克思主义指导地位，巩固共同思想基础", "发展文化产业", "加强网络监管", "提高文化软实力"], correct: 0, level: 2, explanation: "“两个巩固”是意识形态工作的根本任务。" },
-        { text: "关于文化强国建设，下列表述正确的是？", options: ["到2035年建成文化强国", "到2050年建成文化强国", "文化强国已经实现", "文化强国主要是GDP占比"], correct: 0, level: 2, explanation: "党的十九届五中全会提出到2035年建成文化强国。" },
-        { text: "推动中华文化走向世界，要讲好中国故事，展示什么？", options: ["真实、立体、全面的中国", "中国威胁", "中国模式唯一论", "中国历史"], correct: 0, level: 2, explanation: "要展示真实、立体、全面的中国，提升中华文化影响力。" },
-        { text: "网络空间治理的核心要求是？", options: ["营造清朗的网络空间", "自由放任", "技术至上", "全面管制"], correct: 0, level: 2, explanation: "加强网络内容建设，营造清朗的网络空间，是建设网络强国的重要内容。" },
-        { text: "推动中华优秀传统文化创造性转化、创新性发展，要遵循什么？", options: ["古为今用、推陈出新", "原封不动", "全盘西化", "复古主义"], correct: 0, level: 2, explanation: "坚持古为今用、推陈出新，实现传统文化的现代表达。" },
-        { text: "文化自信与道路自信的关系，下列正确的是？", options: ["文化自信是更基础、更深厚的力量", "道路自信决定文化自信", "二者无关", "文化自信是道路自信的结果"], correct: 0, level: 2, explanation: "文化自信是道路、理论、制度自信的根基。" },
-        { text: "新时代加强和改进思想政治工作，要构建什么样的工作格局？", options: ["党委领导、党政齐抓共管", "宣传部门独立负责", "市场主导", "群众自发"], correct: 0, level: 2, explanation: "构建党委统一领导、党政齐抓共管、宣传部门组织协调、各部门履职尽责的大格局。" },
-        { text: "“丝路精神”的核心是？", options: ["和平合作、开放包容、互学互鉴、互利共赢", "霸权主义", "单边主义", "封闭排他"], correct: 0, level: 2, explanation: "丝路精神是共建“一带一路”最重要的力量源泉。" },
-        { text: "全人类共同价值包括？", options: ["和平、发展、公平、正义、民主、自由", "西方中心主义", "零和博弈", "文明冲突"], correct: 0, level: 2, explanation: "中国倡导弘扬和平、发展、公平、正义、民主、自由的全人类共同价值。" },
-        { text: "国家文化公园建设首批重点包括？", options: ["长城、大运河、长征、黄河", "故宫、颐和园", "泰山、黄山", "西湖、漓江"], correct: 0, level: 2, explanation: "长城、大运河、长征、黄河国家文化公园是重大文化工程。" },
-        { text: "“绿水青山就是金山银山”体现了什么发展理念？", options: ["生态文明", "唯GDP论", "先污染后治理", "人类中心主义"], correct: 0, level: 2, explanation: "两山理念引领人与自然和谐共生的现代化。" },
-        { text: "中国航天日是哪一天？", options: ["4月24日", "10月1日", "7月1日", "12月20日"], correct: 0, level: 2, explanation: "1970年4月24日“东方红一号”发射成功，设立航天日弘扬航天精神。" },
-        { text: "“精准扶贫”理念首倡于哪里？", options: ["湖南湘西", "贵州毕节", "宁夏西海固", "四川大凉山"], correct: 0, level: 2, explanation: "2013年习近平总书记在湖南湘西十八洞村首次提出精准扶贫。" },
-        { text: "我国首个入选世界非遗的节日是？", options: ["端午节", "中秋节", "清明节", "春节"], correct: 0, level: 2, explanation: "2009年端午节成为中国首个入选世界非遗的传统节日。" },
-        { text: "“一国两制”下，香港特别行政区区花是？", options: ["紫荆花", "荷花", "梅花", "牡丹"], correct: 0, level: 2, explanation: "紫荆花象征香港与祖国同心共荣。" },
-        { text: "故宫博物院成立多少周年（2025年）？", options: ["100周年", "95周年", "90周年", "80周年"], correct: 0, level: 2, explanation: "故宫博物院1925年成立，2025年迎来百年华诞。" },
-        { text: "“中国式现代化”五大特征中，哪一项关于精神文明？", options: ["物质文明和精神文明相协调", "人口规模巨大", "全体人民共同富裕", "人与自然和谐共生"], correct: 0, level: 2, explanation: "中国式现代化是物质文明和精神文明相协调的现代化。" },
-        { text: "“一带一路”倡议秉持的原则是？", options: ["共商共建共享", "大国优先", "单边受益", "封闭排他"], correct: 0, level: 2, explanation: "共商共建共享是“一带一路”建设的黄金法则。" },
-        { text: "中国式现代化的本质要求之一是？", options: ["坚持中国共产党领导", "坚持西方民主模式", "追求资本利益最大化", "实行多党轮流执政"], correct: 0, level: 3, explanation: "中国式现代化的本质要求第一条就是坚持中国共产党领导，确保社会主义现代化建设正确方向。" },
-        // ---------- level 3 (辉光日新，共19题) ----------
-        { text: "“两个结合”重大论断中，第二个结合是指？", options: ["马克思主义同中华优秀传统文化相结合", "马克思主义同中国具体实际相结合", "马克思主义同改革开放相结合", "马克思主义同中国革命相结合"], correct: 0, level: 3, explanation: "“两个结合”即马克思主义同中国具体实际、同中华优秀传统文化相结合。" },
-        { text: "衡量文化产业发展质量和水平，最重要的是看？", options: ["社会效益", "经济效益", "市场占有率", "出口额"], correct: 0, level: 3, explanation: "要把社会效益放在首位，实现社会效益和经济效益相统一。" },
-        { text: "构建中国话语和中国叙事体系，要提炼展示什么？", options: ["中华优秀传统文化的思想精华", "西方话语体系", "现代科技", "古代神话"], correct: 0, level: 3, explanation: "提炼展示中华优秀传统文化的思想精华，是构建中国话语体系的关键。" },
-        { text: "新时代加强思想道德建设，要深入实施什么工程？", options: ["公民道德建设工程", "希望工程", "安居工程", "智慧工程"], correct: 0, level: 3, explanation: "深入实施公民道德建设工程，推进社会公德、职业道德、家庭美德、个人品德建设。" },
-        { text: "提升国家文化软实力，要增强什么？", options: ["中华文化影响力", "经济总量", "军事力量", "科技排名"], correct: 0, level: 3, explanation: "提高国家文化软实力，要展示中华文化独特魅力，增强中华文化影响力。" },
-        { text: "关于文化自信与民族复兴的关系，正确的是？", options: ["文化自信是民族复兴的精神支撑", "民族复兴决定文化自信", "二者无关联", "文化自信阻碍开放"], correct: 0, level: 3, explanation: "文化自信是更基本、更深沉、更持久的力量，为民族复兴提供强大精神支撑。" },
-        { text: "中华文明的突出特性包括？", options: ["连续性、创新性、统一性、包容性、和平性", "排他性、封闭性", "单一性", "短暂性"], correct: 0, level: 3, explanation: "习近平总书记概括中华文明具有突出的连续性、创新性、统一性、包容性、和平性。" },
-        { text: "全球文明倡议的主要内容是？", options: ["共同倡导尊重世界文明多样性、弘扬全人类共同价值等", "文明冲突论", "历史终结论", "西方中心论"], correct: 0, level: 3, explanation: "中国提出全球文明倡议，推动构建人类命运共同体。" },
-        { text: "“文化数字化战略”的重要目标是？", options: ["实施国家文化数字化战略，建设国家文化大数据体系", "完全商业化", "放弃实体文化", "限制数字创新"], correct: 0, level: 3, explanation: "文化数字化战略推动中华文化全景呈现。" },
-        { text: "“时代楷模”称号体现的是？", options: ["社会主义核心价值观的生动践行", "娱乐至上", "个人炒作", "资本包装"], correct: 0, level: 3, explanation: "时代楷模是道德标杆，引领社会新风尚。" },
-        { text: "“人类命运共同体”理念的文化底蕴是？", options: ["和合文化", "零和博弈", "殖民主义", "孤立主义"], correct: 0, level: 3, explanation: "“和合”理念为人类命运共同体提供深厚伦理支撑。" },
-        { text: "延安精神的主要内容是？", options: ["坚定正确的政治方向，解放思想实事求是，全心全意为人民服务，自力更生艰苦奋斗", "享乐主义", "形式主义", "官僚主义"], correct: 0, level: 3, explanation: "延安精神是党的宝贵精神财富，滋养初心。" },
-        { text: "“新国潮”现象本质是？", options: ["文化自信与传统文化创新表达", "盲目崇古", "外来文化冲击", "短期商业炒作"], correct: 0, level: 3, explanation: "国潮崛起彰显青年一代对中华文化的高度认同。" },
-        { text: "古籍保护与活化利用，重在？", options: ["让书写在古籍里的文字活起来", "束之高阁", "过度商业开发", "完全数字化放弃实体"], correct: 0, level: 3, explanation: "传承古籍智慧，服务当代发展。" },
-        { text: "中国加入《保护非物质文化遗产公约》年份？", options: ["2004年", "2001年", "2008年", "2010年"], correct: 0, level: 3, explanation: "2004年中国成为最早加入公约的国家之一，非遗保护进入新阶段。" },
-        { text: "“十四五”文化产业发展规划中强调什么？", options: ["健全现代文化产业体系", "片面追求增速", "限制民营", "取消监管"], correct: 0, level: 3, explanation: "推动文化产业高质量发展，满足人民精神文化需求。" },
-        { text: "“文化自信”首次写入党章是哪一年？", options: ["2017年党的十九大", "2012年党的十八大", "2022年党的二十大", "2007年十七大"], correct: 0, level: 3, explanation: "十九大将文化自信写入党章，彰显其极端重要性。" },
-        { text: "“中国历代绘画大系”工程的意义？", options: ["传承中华艺术文脉，展现千年丹青瑰丽", "纯商业出版", "仅作考古", "数字化取代实物"], correct: 0, level: 3, explanation: "该工程是新时代文化建设的辉煌成就，让国宝重光。" },
-        { text: "北京中轴线申遗成功彰显了什么？", options: ["中华文明规划理念与都城理想", "单纯旅游价值", "西方建筑影响", "现代城市突破"], correct: 0, level: 3, explanation: "北京中轴线体现中国传统都城规划智慧，是中华文明独特见证。" }
+        // ---------- level 1  ----------
+        { text: "面对当时的复杂局势，中国应当坚持什么样的发展道路？", options: ["全面西化，实行多党制和私有化", "回到改革开放前的僵化体制", "既不走封闭僵化的老路，也不走改旗易帜的邪路，坚持中国特色社会主义道路"], correct: 2, level: 1, explanation: "以江泽民同志为核心的党中央顶住压力，捍卫了中国特色社会主义。历史证明，只有中国特色社会主义道路才能发展中国。改旗易帜的邪路是绝路，封闭僵化的老路也是死路。", historical_context: "20世纪80年代末90年代初，东欧剧变、苏联解体，世界社会主义运动遭遇严重挫折。“历史终结论”甚嚣尘上，国内也出现了改旗易帜的杂音。" },
+        { text: "为什么只有社会主义才能救中国？根本原因在于：", options: ["社会主义是当时世界上最流行的思潮", "苏联的社会主义模式提供了现成经验", "中国共产党的领导使中国人民找到了实现民族复兴的正确道路"], correct: 2, level: 1, explanation: "没有共产党就没有新中国。其他救国方案失败的根本原因在于没有先进政党的领导，没有找到正确的道路。方向决定道路，道路决定命运。", historical_context: "近代以来，洋务运动、戊戌变法、辛亥革命等救国方案相继失败。1921年，中国共产党诞生，中国革命面貌焕然一新。" },
+        { text: "社会主义市场经济体制的根本特征是什么？", options: ["完全由市场配置资源，政府不干预", "公有制为主体、多种所有制经济共同发展，坚持党的领导", "以私有化为基础，全面引入市场竞争"], correct: 1, level: 1, explanation: "社会主义市场经济体制是同社会主义基本制度结合在一起的。其根本特征在于坚持公有制为主体、多种所有制经济共同发展，坚持党的领导。", historical_context: "改革开放初期，围绕“姓社姓资”争论激烈。有人认为市场经济就是资本主义，计划经济才是社会主义。" },
+        // ---------- level 2  ----------
+        { text: "党的十九大作出“中国特色社会主义进入新时代”的重大论断，主要依据是什么？", options: ["我国GDP总量跃居世界第二位", "我国社会主要矛盾发生转化", "我国已进入高收入国家行列"], correct: 1, level: 2, explanation: "社会主要矛盾从“物质文化需要同落后生产之间的矛盾”转化为“美好生活需要同不平衡不充分发展之间的矛盾”，这是进入新时代的根本依据。", historical_context: "党的十八大以来，我国经济总量突破120万亿元，近1亿农村贫困人口脱贫，全面建成小康社会。同时，人民对民主、法治、公平、正义、安全、环境等方面的要求日益增长。" },
+        { text: "新时代坚持和发展中国特色社会主义，必须贯彻的发展理念是：", options: ["快速、稳定、持续", "全面、协调、可持续", "创新、协调、绿色、开放、共享"], correct: 2, level: 2, explanation: "新发展理念系统回答了新时代实现什么样的发展、怎样实现发展的重大问题。创新是第一动力，协调是内生特点，绿色是普遍形态，开放是必由之路，共享是根本目的。", historical_context: "过去一个时期，一些地方片面追求GDP增长，出现“唯GDP论”，导致环境污染、贫富差距等问题。进入新时代后，党中央明确要求“不简单以GDP增长率论英雄”。" },
+        { text: "关于“新时代”与“社会主义初级阶段”的关系，以下哪项理解最为准确？", options: ["进入新时代意味着我国已经超越了社会主义初级阶段", "新时代是社会主义初级阶段中的一个新的发展阶段", "新时代与社会主义初级阶段是相互矛盾的两个判断"], correct: 1, level: 2, explanation: "新时代不是对初级阶段的否定，而是初级阶段中的一个新的发展阶段。经过长期发展，初级阶段的内涵发生了新的变化，呈现出新的阶段性特征。", historical_context: "习近平总书记指出：“中国特色社会主义进入了新时代，这是我国发展新的历史方位。”同时强调，我国仍处于并将长期处于社会主义初级阶段的基本国情没有变。" },
+        // ---------- level 3  ----------
+        { text: "面对复杂严峻的国内外形势，新时代坚持和发展中国特色社会主义，应当保持什么样的精神状态？", options: ["收缩退守，减少国际责任", "观望等待，看形势再定", "进行具有许多新的历史特点的伟大斗争"], correct: 2, level: 3, explanation: "中华民族伟大复兴绝不是轻轻松松就能实现的。一以贯之，意味着无论面临什么样的风险挑战，都要保持战略定力，发扬斗争精神。", historical_context: "当前，世界百年未有之大变局加速演进，单边主义、保护主义抬头，国内改革发展稳定任务艰巨繁重。有人主张“收缩退守”，有人建议“观望等待”。" },
+        { text: "新时代坚持和发展中国特色社会主义，对道路问题的根本要求是：", options: ["根据形势变化随时调整道路方向", "在两种错误倾向之间寻求折中", "既不走封闭僵化的老路，也不走改旗易帜的邪路"], correct: 2, level: 3, explanation: "一以贯之，就是要有“乱云飞渡仍从容”的战略定力。中国特色社会主义道路必须毫不动摇坚持、与时俱进发展。", historical_context: "习近平总书记强调：“道路问题是关系党的事业兴衰成败第一位的问题，道路就是党的生命。”前进道路上，始终存在“改旗易帜”和“封闭僵化”两种错误倾向。" },
+        { text: "确保党不变质、不变色、不变味，新时代党的建设必须坚持的根本方针是：", options: ["开展集中性教育运动", "全面从严治党永远在路上，党的自我革命永远在路上", "以经济建设为中心，党建可以适当放松"], correct: 1, level: 3, explanation: "全面从严治党是党永葆生机活力的必由之路。党的自我革命是跳出治乱兴衰历史周期率的第二个答案，必须保持永远在路上的清醒和坚定。", historical_context: "党的二十大报告指出，我们党必须时刻保持解决大党独有难题的清醒和坚定。大党独有难题包括如何始终不忘初心、牢记使命，如何始终统一思想、统一意志等。" }
     ];
-    // 验证总数 = 56 (level1 18题 + level2 19题 + level3 19题 = 56)
 
     // ========= 增加更多中国成就（展现盛世华章）=========
     // 原始成就数据（用于缩放）
@@ -530,8 +525,8 @@
     let ACHIEVEMENTS = [...ORIGINAL_ACHIEVEMENTS];
 
     // 游戏全局变量 (与原一致)
-    const TOTAL_STATIONS = 18;
-    const STATIONS_PER_LEVEL = 6;
+    const TOTAL_STATIONS = 9;
+    const STATIONS_PER_LEVEL = 3;
     let currentCorrectCount = 0;
     let rewardPoints = 0;
     let gameActive = false;
@@ -661,12 +656,6 @@
         QUESTION_SET.forEach(q=>{
             remainingQuestionsByLevel[q.level].push({...q});
         });
-        for(let lvl of[1,2,3]) {
-            for(let i=remainingQuestionsByLevel[lvl].length-1;i>0;i--){
-                const j=Math.floor(Math.random()*(i+1));
-                [remainingQuestionsByLevel[lvl][i],remainingQuestionsByLevel[lvl][j]]=[remainingQuestionsByLevel[lvl][j],remainingQuestionsByLevel[lvl][i]];
-            }
-        }
     }
     function getQuestionByLevel(level) {
         let pool=remainingQuestionsByLevel[level];
@@ -674,14 +663,10 @@
             const original=QUESTION_SET.filter(q=>q.level===level);
             pool=original.map(q=>({...q}));
             remainingQuestionsByLevel[level]=pool;
-            for(let i=pool.length-1;i>0;i--){
-                const j=Math.floor(Math.random()*(i+1));
-                [pool[i],pool[j]]=[pool[j],pool[i]];
-            }
         }
         return pool.shift();
     }
-    function checkLevelCompletion(){ let stationInLevel=currentCorrectCount%STATIONS_PER_LEVEL; if(stationInLevel===0&&currentCorrectCount>0&&currentCorrectCount<TOTAL_STATIONS){ pendingLevelUp=true; gameActive=false; let levelNum = currentCorrectCount/STATIONS_PER_LEVEL; document.getElementById("levelPassMessage").innerHTML=`第 ${levelNum} 关 · 理论精粹<br>累计理论之光 ${rewardPoints} 点！`; document.getElementById("levelPassModal").classList.add("active"); } }
+    function checkLevelCompletion(){ let stationInLevel=currentCorrectCount%STATIONS_PER_LEVEL; if(stationInLevel===0&&currentCorrectCount>0&&currentCorrectCount<TOTAL_STATIONS){ pendingLevelUp=true; gameActive=false; let levelNum = currentCorrectCount/STATIONS_PER_LEVEL; let message = `第 ${levelNum} 关 · 理论精粹<br>累计理论之光 ${rewardPoints} 点！<br><br>你已深刻领悟此关思想精髓，理论自信愈发坚定，新时代征程再进一步。`; if(levelNum === 1){ message += `<br><br>河流进入中游，江面骤然开阔。两岸出现了前所未有的新景象——现代化的城市、绿水青山的生态、互联互通的桥梁。但这片宽阔的水域，也需要更精准的导航。`; } else if(levelNum === 2){ message += `<br><br>河流即将奔流入海，但这一段也是航行最艰险的河段——礁石密布、暗流涌动、风高浪急。同时，还有一些"分叉水道"试图将主流引向错误的方向。只有保持定力、一以贯之，才能最终汇入大海。`; } document.getElementById("levelPassMessage").innerHTML=message; document.getElementById("levelPassModal").classList.add("active"); } }
     function continueToNextLevel(){ document.getElementById("levelPassModal").classList.remove("active"); pendingLevelUp=false; gameActive=true; if(currentCorrectCount<TOTAL_STATIONS) moveToNextStation(); }
     function startMoveToTarget() {
         if(isMoving)return;
@@ -731,6 +716,27 @@
         });
         document.getElementById("modalExplanation").innerHTML="📖 择善而从，真理领航";
         document.getElementById("modalExplanation").classList.remove("error");
+        // 显示时代背景
+        const contextContent = document.getElementById("contextContent");
+        const currentQuestionIndex = currentCorrectCount;
+        let imageHTML = "";
+        
+        // 根据题目索引显示对应的图片
+        if (currentQuestionIndex === 0) {
+            imageHTML = '<img src="picture1.png" class="context-image" alt="时代背景图片">';
+        } else if (currentQuestionIndex === 1) {
+            imageHTML = '<img src="picture2.png" class="context-image" alt="时代背景图片">';
+        } else if (currentQuestionIndex === 2) {
+            imageHTML = '<img src="picture3.png" class="context-image" alt="时代背景图片">';
+        } else if (currentQuestionIndex === 3) {
+            imageHTML = '<img src="picture4.png" class="context-image" alt="时代背景图片">';
+        } else if (currentQuestionIndex === 4) {
+            imageHTML = '<img src="picture5.png" class="context-image" alt="时代背景图片">';
+        } else if (currentQuestionIndex === 8) {
+            imageHTML = '<img src="picture9.png" class="context-image" alt="时代背景图片">';
+        }
+        
+        contextContent.innerHTML = `${currentStationQuestion.historical_context||"暂无时代背景信息"}${imageHTML}`;
         // 隐藏下一题按钮
         document.getElementById("nextQuestionBtn").style.display="none";
         modal.classList.add("active");
@@ -744,7 +750,7 @@
         const nextQuestionBtn=document.getElementById("nextQuestionBtn");
         if(isCorrect){
             modalExplanation.classList.remove("error");
-            modalExplanation.innerHTML=`✅ 妙哉！ "${correctAns}" 正解。理论之光 +10！ 🎉`;
+            modalExplanation.innerHTML=`✅ 妙哉！ "${correctAns}" 正解。理论之光 +10！ 🎉<br>📖 解析：${currentStationQuestion.explanation}`;
             currentCorrectCount++;
             modifyReward(10);
             updateUI();
@@ -760,14 +766,19 @@
             }
         } else{
             modalExplanation.classList.add("error");
-            modalExplanation.innerHTML=`❌ 误入歧途。正确答案：${correctAns}<br>📖 解析：${currentStationQuestion.explanation}<br>💡 理论之光 -5，再接再厉。`;
+            const currentLevel = getCurrentLevel();
+            let errorMessage = "此河道曾尝试开凿，但最终淤塞";
+            if (currentLevel === 3) {
+                errorMessage = "航船触礁，需要重新校准航向";
+            }
+            modalExplanation.innerHTML=`❌ 误入歧途。${errorMessage}<br>💡 理论之光 -5，再接再厉。`;
             modifyReward(-5);
             const canvasEl=document.getElementById("riverCanvas");
             canvasEl.style.transform="translateX(3px)";
             setTimeout(()=>canvasEl.style.transform="",150);
         }
     }
-    function finishGame(){ gameActive=false; isAwaitingAnswer=false; pendingLevelUp=false; document.getElementById("questionModal").classList.remove("active"); document.getElementById("levelPassModal").classList.remove("active"); currentDisplayRatio=1; redrawAll(); updateUI(); applyLevelTheme(); const isPerfect=(rewardPoints===180); if(isPerfect){ for(let i=0;i<5;i++){ setTimeout(()=>{ canvasConfetti({particleCount:180,spread:100,origin:{y:0.6},startVelocity:25,colors:['#ffd966','#ffaa33','#ff7e33']}); },i*150); } const climaxDiv=document.getElementById("perfectClimaxOverlay"); climaxDiv.classList.add("active"); setTimeout(()=>{ climaxDiv.classList.remove("active"); },4000); } showRankingModal(rewardPoints); }
+    function finishGame(){ gameActive=false; isAwaitingAnswer=false; pendingLevelUp=false; document.getElementById("questionModal").classList.remove("active"); document.getElementById("levelPassModal").classList.remove("active"); currentDisplayRatio=1; redrawAll(); updateUI(); applyLevelTheme(); const isPerfect=(rewardPoints===90); if(isPerfect){ for(let i=0;i<5;i++){ setTimeout(()=>{ canvasConfetti({particleCount:90,spread:100,origin:{y:0.6},startVelocity:25,colors:['#ffd966','#ffaa33','#ff7e33']}); },i*150); } const climaxDiv=document.getElementById("perfectClimaxOverlay"); climaxDiv.classList.add("active"); setTimeout(()=>{ climaxDiv.classList.remove("active"); },4000); } showRankingModal(rewardPoints); }
     function startGame(){ 
         if(gameActive) return; 
         // 如果已经有进度，从暂停前的进度继续
@@ -855,7 +866,13 @@
         
         setupCanvasClick();
         initRemainingQuestions();
-        document.getElementById("startGameBtn").addEventListener("click",startGame);
+        document.getElementById("startGameBtn").addEventListener("click",()=>{
+            document.getElementById("startJourneyModal").classList.add("active");
+        });
+        document.getElementById("startJourneyBtn").addEventListener("click",()=>{
+            document.getElementById("startJourneyModal").classList.remove("active");
+            startGame();
+        });
         document.getElementById("exitGameBtn").addEventListener("click",exitGame);
         document.getElementById("resetGameBtn").addEventListener("click",resetGame);
         document.getElementById("closeAchievementBtn").addEventListener("click",closeAchievementModal);
