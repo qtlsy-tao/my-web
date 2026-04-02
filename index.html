@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>新时代坚持和发展中国特色社会主义 · 思想航程</title>
     <!-- canvas-confetti 华丽特效库 -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
@@ -194,6 +194,64 @@
         object-fit: contain;
         border-radius: 16px;
         margin-top: 16px;
+    }
+    
+    /* 移动端响应式布局 */
+    @media (max-width: 768px) {
+        .modal-container {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 20px 0;
+        }
+        .question-modal,
+        .context-modal {
+            width: 95%;
+            max-width: none;
+            margin: 0;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        .context-modal {
+            margin-top: 20px;
+        }
+        .modal-question {
+            font-size: 1.2rem;
+        }
+        .modal-options {
+            gap: 10px;
+        }
+        .modal-opt {
+            padding: 12px 16px;
+        }
+        .modal-explanation {
+            font-size: 0.9rem;
+            padding: 12px 16px;
+        }
+        /* 调整按钮大小和间距 */
+        .next-question-btn,
+        .exit-in-quiz {
+            padding: 12px 20px;
+            font-size: 0.9rem;
+        }
+        /* 调整其他模态框 */
+        .level-pass-card,
+        .history-modal-card,
+        .achievement-modal {
+            width: 95%;
+            max-width: none;
+            padding: 24px 20px;
+        }
+        .pass-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+        .pass-btn {
+            width: 100%;
+            max-width: 300px;
+        }
     }
         .modal-overlay.active, .achievement-modal-overlay.active, .level-pass-modal.active, .history-modal-overlay.active {
             visibility: visible;
