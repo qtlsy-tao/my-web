@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>文化自信·三关问道 | 盛世华章 · 千题库典</title>
+    <title>新时代坚持和发展中国特色社会主义 · 思想航程</title>
     <!-- canvas-confetti 华丽特效库 -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
     <style>
@@ -62,10 +62,12 @@
         }
 
         .game-container {
+            width: 100%;
             border-radius: 48px;
             overflow: hidden;
             box-shadow: 0 0 0 4px rgba(255,215,0,0.6), 0 20px 30px rgba(0,0,0,0.4);
             position: relative;
+            background: #0e4a6e; /* 默认背景色，与第一关主题一致 */
         }
 
         canvas {
@@ -74,6 +76,7 @@
             height: auto;
             cursor: pointer;
             transition: filter 0.3s;
+            object-fit: cover;
         }
 
         .info-panel {
@@ -359,16 +362,16 @@
 <body class="level-1">
 <div class="game-wrapper">
     <div class="game-container">
-        <canvas id="riverCanvas" width="1000" height="550" style="width:100%; height:auto; max-width:1000px; aspect-ratio:1000/550"></canvas>
+        <canvas id="riverCanvas" width="1000" height="550" style="width:100%; height:auto; aspect-ratio:1000/550"></canvas>
     </div>
     <div class="info-panel">
-        <div class="title-badge">⛵ 文脉相承 · 思想航程</div>
+        <div class="title-badge">⛵ 思想领航 · 理论自信</div>
         <div class="level-badge" id="levelDisplay">📖 未启程</div>
         <div class="progress" id="progressText">📌 关卡站点: 0 / 6</div>
-        <div class="reward" id="rewardDisplay">⭐ 文华灵蕴: 0</div>
+        <div class="reward" id="rewardDisplay">⭐ 理论之光: 0</div>
         <div class="btn-group">
             <button class="start-btn" id="startGameBtn">🚩 扬帆起航</button>
-            <button class="history-btn" id="historyRankBtn">📜 文华旧榜</button>
+            <button class="history-btn" id="historyRankBtn">📜 思想旧榜</button>
             <button class="exit-btn" id="exitGameBtn">🚪 暂离归港</button>
             <button class="reset-btn" id="resetGameBtn">🔄 重开纪元</button>
         </div>
@@ -380,7 +383,8 @@
     <div class="question-modal">
         <div class="modal-question" id="modalQuestion">加载中...</div>
         <div class="modal-options" id="modalOptions"></div>
-        <div class="modal-explanation" id="modalExplanation">🌊 选择答案，红船载文脉前行～</div>
+        <div class="modal-explanation" id="modalExplanation">🌊 择选真理，红船载思想前行～</div>
+        <button class="next-question-btn" id="nextQuestionBtn" style="display: none; background: #2c7a4d; color: white; border: none; padding: 10px 16px; border-radius: 40px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 12px; transition: 0.2s;">➡️ 下一题</button>
         <button class="exit-in-quiz" id="exitDuringQuizBtn">🚪 中断征程 · 退出</button>
     </div>
 </div>
@@ -388,11 +392,11 @@
 <!-- 过关确认模态框 -->
 <div id="levelPassModal" class="level-pass-modal">
     <div class="level-pass-card">
-        <h2 style="color:#b64926; margin-bottom:12px;">✨ 文枢初启 · 过关 ✨</h2>
-        <p id="levelPassMessage" style="font-size:1.2rem; margin-bottom:16px;">第1关 · 文化根脉</p>
-        <p>你已悟透此关文心，灵蕴之光愈发璀璨。</p>
+        <h2 style="color:#b64926; margin-bottom:12px;">✨ 新时代航程 · 思想过关 ✨</h2>
+        <p id="levelPassMessage" style="font-size:1.2rem; margin-bottom:16px;">第一关 · 理论根基</p>
+        <p>你已深刻领悟此关思想精髓，理论自信愈发坚定，新时代征程再进一步。</p>
         <div class="pass-buttons">
-            <button id="continueToNextLevelBtn" class="pass-btn continue-btn">🏮 承前启后 · 下一关</button>
+            <button id="continueToNextLevelBtn" class="pass-btn continue-btn">🏮 继往开来 · 新时代征程</button>
             <button id="quitAfterLevelBtn" class="pass-btn quit-pass-btn">🌙 暂歇归港</button>
         </div>
     </div>
@@ -401,8 +405,8 @@
 <!-- 最终排名模态框 (通关后展示) -->
 <div id="rankingModal" class="level-pass-modal">
     <div class="level-pass-card">
-        <h2 style="color:#b64926;">🏆 文华灵蕴·天榜 🏆</h2>
-        <p style="margin:8px 0;">本次灵蕴：<strong id="currentScoreSpan">0</strong> 点</p>
+        <h2 style="color:#b64926;">🏆 理论之光·天榜 🏆</h2>
+        <p style="margin:8px 0;">本次理论之光：<strong id="currentScoreSpan">0</strong> 点</p>
         <div id="rankingListContainer" class="ranking-list">载入中...</div>
         <button id="closeRankingBtn" class="pass-btn continue-btn" style="background:#e67e22;">闭卷珍藏</button>
     </div>
@@ -411,8 +415,8 @@
 <!-- 历史排名模态框（查看个人历史成绩） -->
 <div id="historyRankModal" class="history-modal-overlay">
     <div class="history-modal-card">
-        <h2 style="color:#b64926;">📜 历代文华·天榜纪事 📜</h2>
-        <p style="margin:8px 0; font-size:0.9rem;">⭐ 灵蕴前十名 ⭐</p>
+        <h2 style="color:#b64926;">📜 思想航迹·天榜纪事 📜</h2>
+        <p style="margin:8px 0; font-size:0.9rem;">⭐ 理论之光前十名 ⭐</p>
         <div id="historyRankList" class="ranking-list">加载中...</div>
         <button id="closeHistoryBtn" class="pass-btn continue-btn" style="background:#e67e22;">归藏</button>
     </div>
@@ -431,9 +435,9 @@
 <!-- 完美通关全屏反馈浮层 -->
 <div id="perfectClimaxOverlay" class="perfect-climax">
     <div class="climax-card">
-        <h1>🏅 文华巅峰 · 臻至化境 🏅</h1>
-        <p>💎 一遍全对 · 灵蕴满盈 💎</p>
-        <p style="font-size:1rem;">文化自信之光，照耀盛世中华！</p>
+        <h1>🏅 思想高峰 · 时代新篇 🏅</h1>
+        <p>💎 学思贯通 · 理论自信 💎</p>
+        <p style="font-size:1rem;">习近平新时代中国特色社会主义思想引领民族复兴伟业！</p>
     </div>
 </div>
 
@@ -459,6 +463,11 @@
         { text: "“己所不欲，勿施于人”出自哪部经典？", options: ["论语", "孟子", "大学", "中庸"], correct: 0, level: 1, explanation: "这是孔子“恕”道的核心表述，出自《论语》。" },
         { text: "以下哪个节日属于中国四大传统节日之一？", options: ["中秋节", "圣诞节", "情人节", "感恩节"], correct: 0, level: 1, explanation: "春节、清明、端午、中秋是中国四大传统节日。" },
         { text: "中国高铁“复兴号”体现了什么精神？", options: ["自主创新、领跑世界", "封闭保守", "模仿依赖", "急功近利"], correct: 0, level: 1, explanation: "复兴号彰显了中国制造、中国创造的非凡成就。" },
+        { text: "中国特色社会主义最本质的特征是什么？", options: ["中国共产党领导", "人民民主专政", "改革开放", "社会主义市场经济"], correct: 0, level: 1, explanation: "中国共产党领导是中国特色社会主义最本质的特征，是中国特色社会主义制度的最大优势。" },
+        { text: "中国特色社会主义制度的最大优势是？", options: ["中国共产党领导", "集中力量办大事", "人民当家作主", "依法治国"], correct: 0, level: 1, explanation: "中国共产党的领导是中国特色社会主义制度的最大优势，党是最高政治领导力量。" },
+        { text: "“五位一体”总体布局包括哪五个方面？", options: ["经济、政治、文化、社会、生态文明", "工业、农业、国防、科技、教育", "改革、发展、稳定、内政、外交", "城市、农村、东部、西部、中部"], correct: 0, level: 1, explanation: "“五位一体”是经济建设、政治建设、文化建设、社会建设、生态文明建设全面推进。" },
+        { text: "“四个全面”战略布局的最新表述是？", options: ["全面建设社会主义现代化国家、全面深化改革、全面依法治国、全面从严治党", "全面建成小康社会、全面深化改革、全面依法治国、全面从严治党", "全面建设社会主义现代化强国、全面改革开放、全面依法治国、全面从严治党", "全面建设小康社会、全面创新、全面法治、全面党建"], correct: 0, level: 1, explanation: "党的十九届五中全会将“全面建成小康社会”发展为“全面建设社会主义现代化国家”，构成了新的“四个全面”战略布局。" },
+        { text: "新发展理念的内涵是？", options: ["创新、协调、绿色、开放、共享", "科学、发展、改革、稳定、和谐", "质量、效益、公平、可持续、安全", "创造、协调、生态、包容、共赢"], correct: 0, level: 1, explanation: "创新、协调、绿色、开放、共享的新发展理念，是引领我国发展全局深刻变革的科学指引。" },
         // ---------- level 2 (薪火相传，共19题) ----------
         { text: "意识形态工作的根本任务是？", options: ["巩固马克思主义指导地位，巩固共同思想基础", "发展文化产业", "加强网络监管", "提高文化软实力"], correct: 0, level: 2, explanation: "“两个巩固”是意识形态工作的根本任务。" },
         { text: "关于文化强国建设，下列表述正确的是？", options: ["到2035年建成文化强国", "到2050年建成文化强国", "文化强国已经实现", "文化强国主要是GDP占比"], correct: 0, level: 2, explanation: "党的十九届五中全会提出到2035年建成文化强国。" },
@@ -478,6 +487,7 @@
         { text: "故宫博物院成立多少周年（2025年）？", options: ["100周年", "95周年", "90周年", "80周年"], correct: 0, level: 2, explanation: "故宫博物院1925年成立，2025年迎来百年华诞。" },
         { text: "“中国式现代化”五大特征中，哪一项关于精神文明？", options: ["物质文明和精神文明相协调", "人口规模巨大", "全体人民共同富裕", "人与自然和谐共生"], correct: 0, level: 2, explanation: "中国式现代化是物质文明和精神文明相协调的现代化。" },
         { text: "“一带一路”倡议秉持的原则是？", options: ["共商共建共享", "大国优先", "单边受益", "封闭排他"], correct: 0, level: 2, explanation: "共商共建共享是“一带一路”建设的黄金法则。" },
+        { text: "中国式现代化的本质要求之一是？", options: ["坚持中国共产党领导", "坚持西方民主模式", "追求资本利益最大化", "实行多党轮流执政"], correct: 0, level: 3, explanation: "中国式现代化的本质要求第一条就是坚持中国共产党领导，确保社会主义现代化建设正确方向。" },
         // ---------- level 3 (辉光日新，共19题) ----------
         { text: "“两个结合”重大论断中，第二个结合是指？", options: ["马克思主义同中华优秀传统文化相结合", "马克思主义同中国具体实际相结合", "马克思主义同改革开放相结合", "马克思主义同中国革命相结合"], correct: 0, level: 3, explanation: "“两个结合”即马克思主义同中国具体实际、同中华优秀传统文化相结合。" },
         { text: "衡量文化产业发展质量和水平，最重要的是看？", options: ["社会效益", "经济效益", "市场占有率", "出口额"], correct: 0, level: 3, explanation: "要把社会效益放在首位，实现社会效益和经济效益相统一。" },
@@ -502,7 +512,8 @@
     // 验证总数 = 56 (level1 18题 + level2 19题 + level3 19题 = 56)
 
     // ========= 增加更多中国成就（展现盛世华章）=========
-    const ACHIEVEMENTS = [
+    // 原始成就数据（用于缩放）
+    const ORIGINAL_ACHIEVEMENTS = [
         { emoji: "📜", text: "文脉绵长", x: 120, y: 480, title: "文脉绵长 · 薪火相传", photoEmoji: "📜🖌️🏮", description: "中华文明五千年，文脉赓续不息。" },
         { emoji: "🎋", text: "君子之风", x: 780, y: 500, title: "君子之风 · 德润人心", photoEmoji: "🎋🌸", description: "崇德向善，明德惟馨，传统美德滋养当代文明。" },
         { emoji: "🌊", text: "开放包容", x: 80, y: 380, title: "开放包容 · 和而不同", photoEmoji: "🌊🤝", description: "文明互鉴，美美与共，展现中华文化胸襟。" },
@@ -515,6 +526,8 @@
         { emoji: "🏛️", text: "故宫风华", x: 30, y: 180, title: "故宫风华 · 文明印记", photoEmoji: "🏛️🏺", description: "六百年紫禁城，中华文明的璀璨瑰宝。" },
         { emoji: "🎋", text: "中医智慧", x: 700, y: 80, title: "中医智慧 · 悬壶济世", photoEmoji: "🌿🍵", description: "岐黄之道，护佑苍生，传统医学焕发新生。" }
     ];
+    // 当前成就数据（缩放后）
+    let ACHIEVEMENTS = [...ORIGINAL_ACHIEVEMENTS];
 
     // 游戏全局变量 (与原一致)
     const TOTAL_STATIONS = 18;
@@ -531,52 +544,350 @@
 
     let canvas, ctx;
     let canvasWidth = 1000, canvasHeight = 550;
-    const pathPoints = [
+    // 原始路径点（用于缩放）
+    const ORIGINAL_PATH_POINTS = [
         { x: 500, y: 520 }, { x: 380, y: 470 }, { x: 280, y: 410 },
         { x: 320, y: 340 }, { x: 430, y: 280 }, { x: 560, y: 220 },
         { x: 640, y: 160 }, { x: 580, y: 100 }, { x: 470, y: 70 },
         { x: 500, y: 40 }
     ];
+    // 当前路径点（缩放后）
+    let pathPoints = [...ORIGINAL_PATH_POINTS];
     let curvePoints = [];
     let currentDisplayRatio = 0;
     let targetRatio = 0;
 
     const LEVEL_THEMES = {
-        1: { canvasBg: "#0e4a6e", riverMain: "#3d8fbd", riverMid: "#7abedb", riverLight: "#b3def5", stationCompleted: "#ffd966", stationPending: "#c9a87b", bankText: "#fff5e6", bodyClass: "level-1", titleDecor: "📖 文心雕龙 · 初识文脉" },
-        2: { canvasBg: "#1d6b2f", riverMain: "#4fa84f", riverMid: "#7fc97f", riverLight: "#b0e0b0", stationCompleted: "#ffec80", stationPending: "#baa05e", bankText: "#f0ffdb", bodyClass: "level-2", titleDecor: "🎋 薪火相传 · 文以载道" },
-        3: { canvasBg: "#b45f2b", riverMain: "#e5984a", riverMid: "#f7bc6e", riverLight: "#ffe0a3", stationCompleted: "#ffd966", stationPending: "#c9843b", bankText: "#fff3cf", bodyClass: "level-3", titleDecor: "✨ 辉光日新 · 文化盛景" }
+        1: { canvasBg: "#0e4a6e", riverMain: "#3d8fbd", riverMid: "#7abedb", riverLight: "#b3def5", stationCompleted: "#ffd966", stationPending: "#c9a87b", bankText: "#fff5e6", bodyClass: "level-1", titleDecor: "📖 方向决定道路，道路决定命运" },
+        2: { canvasBg: "#1d6b2f", riverMain: "#4fa84f", riverMid: "#7fc97f", riverLight: "#b0e0b0", stationCompleted: "#ffec80", stationPending: "#baa05e", bankText: "#f0ffdb", bodyClass: "level-2", titleDecor: "🎋 中国特色社会主义进入新时代" },
+        3: { canvasBg: "#b45f2b", riverMain: "#e5984a", riverMid: "#f7bc6e", riverLight: "#ffe0a3", stationCompleted: "#ffd966", stationPending: "#c9843b", bankText: "#fff3cf", bodyClass: "level-3", titleDecor: "✨ 新时代坚持和发展中国特色社会主义要一以贯之" }
     };
 
     function getCurrentLevel() { let lvl = Math.floor(currentCorrectCount / STATIONS_PER_LEVEL) + 1; return Math.min(lvl, 3); }
-    function applyLevelTheme() { let level = getCurrentLevel(); if (!gameActive && currentCorrectCount === 0) level = 1; const theme = LEVEL_THEMES[level]; document.body.className = theme.bodyClass; document.querySelector(".title-badge").innerHTML = `⛵ ${theme.titleDecor}`; redrawAll(); }
+    function applyLevelTheme() { let level = getCurrentLevel(); if (!gameActive && currentCorrectCount === 0) level = 1; const theme = LEVEL_THEMES[level]; document.body.className = theme.bodyClass; document.querySelector(".title-badge").innerHTML = `⛵ 新时代，新征程`; redrawAll(); }
     function getCatmullRomPoint(p0, p1, p2, p3, t) { const t2=t*t, t3=t2*t; const x = 0.5 * ((2*p1.x)+(-p0.x+p2.x)*t+(2*p0.x-5*p1.x+4*p2.x-p3.x)*t2+(-p0.x+3*p1.x-3*p2.x+p3.x)*t3); const y = 0.5 * ((2*p1.y)+(-p0.y+p2.y)*t+(2*p0.y-5*p1.y+4*p2.y-p3.y)*t2+(-p0.y+3*p1.y-3*p2.y+p3.y)*t3); return {x,y}; }
     function buildSmoothCurve(points, segments=30) { let smooth=[]; for(let i=0;i<points.length-1;i++){ const p0=points[i-1]||points[i], p1=points[i], p2=points[i+1], p3=points[i+2]||points[i+1]; for(let s=0;s<=segments;s++) smooth.push(getCatmullRomPoint(p0,p1,p2,p3,s/segments)); } return smooth; }
     function getPointOnCurve(ratio) { if(!curvePoints.length) return {x:500,y:500}; let idx=Math.min(curvePoints.length-1,Math.floor(ratio*(curvePoints.length-1))); return curvePoints[Math.max(0,idx)]; }
-    function drawRiver() { if(!ctx)return; const level = (gameActive||currentCorrectCount>0)?getCurrentLevel():1; const theme=LEVEL_THEMES[level]; ctx.clearRect(0,0,canvasWidth,canvasHeight); ctx.fillStyle=theme.canvasBg; ctx.fillRect(0,0,canvasWidth,canvasHeight); if(curvePoints.length<2)return; ctx.beginPath(); ctx.moveTo(curvePoints[0].x,curvePoints[0].y); for(let i=1;i<curvePoints.length;i++) ctx.lineTo(curvePoints[i].x,curvePoints[i].y); ctx.strokeStyle=theme.riverMain; ctx.lineWidth=42; ctx.stroke(); ctx.beginPath(); for(let i=1;i<curvePoints.length;i++) ctx.lineTo(curvePoints[i].x,curvePoints[i].y); ctx.strokeStyle=theme.riverMid; ctx.lineWidth=28; ctx.stroke(); ctx.beginPath(); for(let i=1;i<curvePoints.length;i++) ctx.lineTo(curvePoints[i].x,curvePoints[i].y); ctx.strokeStyle=theme.riverLight; ctx.lineWidth=12; ctx.stroke(); for(let s=0;s<=TOTAL_STATIONS;s++){ let pos=getPointOnCurve(s/TOTAL_STATIONS); ctx.beginPath(); ctx.arc(pos.x,pos.y,10,0,2*Math.PI); ctx.fillStyle=(s<=currentCorrectCount)?theme.stationCompleted:theme.stationPending; ctx.fill(); ctx.fillStyle="#2d2b1f"; ctx.font="bold 15px 'Segoe UI'"; ctx.fillText(s+1,pos.x-6,pos.y+7); } ctx.font="26px 'Segoe UI Emoji'"; ACHIEVEMENTS.forEach(a=>{ ctx.fillStyle=theme.bankText; ctx.shadowBlur=5; ctx.fillText(a.emoji,a.x,a.y); ctx.font="12px 'Segoe UI'"; ctx.fillStyle=theme.bankText; ctx.fillText(a.text,a.x+5,a.y+16); ctx.font="26px 'Segoe UI Emoji'"; }); ctx.shadowBlur=0; const endPos=getPointOnCurve(1); ctx.fillStyle="#b33e2e"; ctx.fillRect(endPos.x-35,endPos.y-45,70,30); ctx.fillStyle="#f7c56e"; ctx.fillRect(endPos.x-30,endPos.y-50,60,10); ctx.fillStyle="#b33e2e"; for(let i=-20;i<=20;i+=20) ctx.fillRect(endPos.x+i,endPos.y-45,8,30); ctx.fillStyle="#d45c3a"; ctx.beginPath(); ctx.moveTo(endPos.x-40,endPos.y-45); ctx.lineTo(endPos.x,endPos.y-70); ctx.lineTo(endPos.x+40,endPos.y-45); ctx.fill(); ctx.fillStyle="#c7a252"; ctx.fillRect(endPos.x-12,endPos.y-40,24,22); ctx.fillStyle="#fff"; ctx.font="bold 16px 'Segoe UI'"; ctx.fillText("终点",endPos.x-16,endPos.y-25); }
+    function drawRiver() {
+        if(!ctx)return;
+        const level = (gameActive||currentCorrectCount>0)?getCurrentLevel():1;
+        const theme=LEVEL_THEMES[level];
+        ctx.clearRect(0,0,canvasWidth,canvasHeight);
+        ctx.fillStyle=theme.canvasBg;
+        ctx.fillRect(0,0,canvasWidth,canvasHeight);
+        if(curvePoints.length<2)return;
+        ctx.beginPath();
+        ctx.moveTo(curvePoints[0].x,curvePoints[0].y);
+        for(let i=1;i<curvePoints.length;i++) ctx.lineTo(curvePoints[i].x,curvePoints[i].y);
+        ctx.strokeStyle=theme.riverMain;
+        ctx.lineWidth=42;
+        ctx.stroke();
+        ctx.beginPath();
+        for(let i=1;i<curvePoints.length;i++) ctx.lineTo(curvePoints[i].x,curvePoints[i].y);
+        ctx.strokeStyle=theme.riverMid;
+        ctx.lineWidth=28;
+        ctx.stroke();
+        ctx.beginPath();
+        for(let i=1;i<curvePoints.length;i++) ctx.lineTo(curvePoints[i].x,curvePoints[i].y);
+        ctx.strokeStyle=theme.riverLight;
+        ctx.lineWidth=12;
+        ctx.stroke();
+        for(let s=0;s<=TOTAL_STATIONS;s++){
+            let pos=getPointOnCurve(s/TOTAL_STATIONS);
+            ctx.beginPath();
+            ctx.arc(pos.x,pos.y,10,0,2*Math.PI);
+            ctx.fillStyle=(s<=currentCorrectCount)?theme.stationCompleted:theme.stationPending;
+            ctx.fill();
+            ctx.fillStyle="#2d2b1f";
+            ctx.font="bold 15px 'Segoe UI'";
+            ctx.fillText(s+1,pos.x-6,pos.y+7);
+        }
+        ctx.font="32px 'Segoe UI Emoji'";
+        ACHIEVEMENTS.forEach(a=>{
+            ctx.fillStyle=theme.bankText;
+            ctx.shadowBlur=5;
+            ctx.fillText(a.emoji,a.x,a.y);
+            ctx.font="14px 'Segoe UI'";
+            ctx.fillStyle=theme.bankText;
+            ctx.fillText(a.text,a.x+5,a.y+20);
+            ctx.font="32px 'Segoe UI Emoji'";
+        });
+        ctx.shadowBlur=0;
+        const endPos=getPointOnCurve(1);
+        ctx.fillStyle="#b33e2e";
+        ctx.fillRect(endPos.x-35,endPos.y-45,70,30);
+        ctx.fillStyle="#f7c56e";
+        ctx.fillRect(endPos.x-30,endPos.y-50,60,10);
+        ctx.fillStyle="#b33e2e";
+        for(let i=-20;i<=20;i+=20) ctx.fillRect(endPos.x+i,endPos.y-45,8,30);
+        ctx.fillStyle="#d45c3a";
+        ctx.beginPath();
+        ctx.moveTo(endPos.x-40,endPos.y-45);
+        ctx.lineTo(endPos.x,endPos.y-70);
+        ctx.lineTo(endPos.x+40,endPos.y-45);
+        ctx.fill();
+        ctx.fillStyle="#c7a252";
+        ctx.fillRect(endPos.x-12,endPos.y-40,24,22);
+        ctx.fillStyle="#fff";
+        ctx.font="bold 16px 'Segoe UI'";
+        ctx.fillText("终点",endPos.x-16,endPos.y-25);
+    }
     function drawBoat() { let pos=getPointOnCurve(currentDisplayRatio); ctx.save(); ctx.shadowBlur=6; ctx.font="38px 'Segoe UI Emoji'"; ctx.fillStyle="#8B5A2B"; ctx.fillText("⛵",pos.x-18,pos.y-8); ctx.fillStyle="#F9E076"; ctx.font="26px 'Segoe UI Emoji'"; ctx.fillText("⭐",pos.x-5,pos.y-20); ctx.restore(); }
     function redrawAll() { drawRiver(); drawBoat(); }
-    function updateUI() { let level=getCurrentLevel(); const progressSpan=document.getElementById("progressText"); const rewardSpan=document.getElementById("rewardDisplay"); if(!gameActive && currentCorrectCount===0) document.getElementById("levelDisplay").innerHTML="📖 未启程"; else if(currentCorrectCount===TOTAL_STATIONS) document.getElementById("levelDisplay").innerHTML="🏆 三关圆满 · 文耀九天"; else document.getElementById("levelDisplay").innerHTML=`🌟 第 ${level} 关 · ${LEVEL_THEMES[level].titleDecor.split('·')[1]}`; let stationInLevel=currentCorrectCount%STATIONS_PER_LEVEL; progressSpan.innerHTML=(currentCorrectCount===TOTAL_STATIONS)?`🎉 全通！ ${currentCorrectCount}/${TOTAL_STATIONS}`:`📌 本关站点: ${stationInLevel} / ${STATIONS_PER_LEVEL}`; rewardSpan.innerHTML=`⭐ 文华灵蕴: ${rewardPoints}`; }
-    function modifyReward(delta) { let newVal=rewardPoints+delta; if(newVal<0) newVal=0; rewardPoints=newVal; updateUI(); const toast=document.createElement("div"); toast.className="reward-toast"; toast.innerText=delta>0?`✨ +${delta} 灵蕴 ✨`:`⚠️ ${delta} 灵蕴 · 砥砺前行`; document.body.appendChild(toast); setTimeout(()=>toast.remove(),1800); }
+    function updateUI() { let level=getCurrentLevel(); const progressSpan=document.getElementById("progressText"); const rewardSpan=document.getElementById("rewardDisplay"); if(!gameActive && currentCorrectCount===0) document.getElementById("levelDisplay").innerHTML="📖 未启程"; else if(currentCorrectCount===TOTAL_STATIONS) document.getElementById("levelDisplay").innerHTML="🏆 三关圆满 · 思想远航"; else document.getElementById("levelDisplay").innerHTML=`🌟 第 ${level} 关 · ${LEVEL_THEMES[level].titleDecor}`; let stationInLevel=currentCorrectCount%STATIONS_PER_LEVEL; progressSpan.innerHTML=(currentCorrectCount===TOTAL_STATIONS)?`🎉 全通！ ${currentCorrectCount}/${TOTAL_STATIONS}`:`📌 本关站点: ${stationInLevel} / ${STATIONS_PER_LEVEL}`; rewardSpan.innerHTML=`⭐ 理论之光: ${rewardPoints}`; }
+    function modifyReward(delta) { let newVal=rewardPoints+delta; if(newVal<0) newVal=0; rewardPoints=newVal; updateUI(); const toast=document.createElement("div"); toast.className="reward-toast"; toast.innerText=delta>0?`✨ +${delta} 理论之光 ✨`:`⚠️ ${delta} 理论之光 · 砥砺前行`; document.body.appendChild(toast); setTimeout(()=>toast.remove(),1800); }
     function saveScoreToRanking(score, nickname){ let rankings=JSON.parse(localStorage.getItem("cultureRankings")||"[]"); rankings.push({score:score,date:new Date().toLocaleString(),nickname:nickname||"匿名"}); rankings.sort((a,b)=>b.score-a.score); rankings=rankings.slice(0,10); localStorage.setItem("cultureRankings",JSON.stringify(rankings)); return rankings; }
-    function showRankingModal(finalScore){ const container=document.getElementById("rankingListContainer"); document.getElementById("currentScoreSpan").innerText=finalScore; container.innerHTML=`<div style="margin-bottom:20px;"><p style="margin-bottom:8px;">请输入您的昵称：</p><input type="text" id="nicknameInput" placeholder="输入昵称（最多10个字符）" style="width:100%; padding:10px; border-radius:40px; border:2px solid #e2d5bb; font-size:1rem; text-align:center;"></div><button id="saveScoreBtn" class="pass-btn continue-btn" style="background:#2c7a4d; margin-bottom:20px;">保存分数</button><div id="rankingListContent">载入中...</div>`; document.getElementById("rankingModal").classList.add("active"); document.getElementById("saveScoreBtn").addEventListener("click",()=>{ const nicknameInput=document.getElementById("nicknameInput"); let nickname=nicknameInput.value.trim(); if(nickname.length>10) nickname=nickname.substring(0,10); const rankings=saveScoreToRanking(finalScore,nickname); const rankingListContent=document.getElementById("rankingListContent"); rankingListContent.innerHTML=rankings.length?rankings.map((item,idx)=>`<div class="ranking-item ${item.score===finalScore&&idx===rankings.findIndex(r=>r.score===finalScore)&&item.nickname===nickname?"highlight":""}"><span>${idx+1}. ${item.nickname} - ${item.score} 灵蕴</span><span style="font-size:0.8rem;">${item.date}</span></div>`).join(""):"<div>暂无记录</div>"; document.getElementById("saveScoreBtn").style.display="none"; document.getElementById("nicknameInput").parentElement.style.display="none"; }); }
-    function showHistoryRanking(){ let rankings=JSON.parse(localStorage.getItem("cultureRankings")||"[]"); const container=document.getElementById("historyRankList"); if(rankings.length===0) { container.innerHTML="<div>✨ 暂无历史战绩，扬帆起航吧 ✨</div>"; } else { container.innerHTML=rankings.map((item,idx)=>`<div class="ranking-item"><span>${idx+1}. ${item.nickname || "匿名"} - ${item.score} 灵蕴</span><span>${item.date}</span></div>`).join(""); } document.getElementById("historyRankModal").classList.add("active"); }
+    function showRankingModal(finalScore) {
+        const container=document.getElementById("rankingListContainer");
+        document.getElementById("currentScoreSpan").innerText=finalScore;
+        container.innerHTML=`<div style="margin-bottom:20px;"><p style="margin-bottom:8px;">请输入您的昵称：</p><input type="text" id="nicknameInput" placeholder="输入昵称（最多10个字符）" style="width:100%; padding:10px; border-radius:40px; border:2px solid #e2d5bb; font-size:1rem; text-align:center;"></div><button id="saveScoreBtn" class="pass-btn continue-btn" style="background:#2c7a4d; margin-bottom:20px;">保存分数</button><div id="rankingListContent">载入中...</div>`;
+        document.getElementById("rankingModal").classList.add("active");
+        document.getElementById("saveScoreBtn").addEventListener("click",()=>{
+            const nicknameInput=document.getElementById("nicknameInput");
+            let nickname=nicknameInput.value.trim();
+            if(nickname.length>10) nickname=nickname.substring(0,10);
+            const rankings=saveScoreToRanking(finalScore,nickname);
+            const rankingListContent=document.getElementById("rankingListContent");
+            rankingListContent.innerHTML=rankings.length?rankings.map((item,idx)=>`<div class="ranking-item ${item.score===finalScore&&idx===rankings.findIndex(r=>r.score===finalScore)&&item.nickname===nickname?"highlight":""}"><span>${idx+1}. ${item.nickname} - ${item.score} 理论之光</span><span style="font-size:0.8rem;">${item.date}</span></div>`).join(""):"<div>暂无记录</div>";
+            document.getElementById("saveScoreBtn").style.display="none";
+            document.getElementById("nicknameInput").parentElement.style.display="none";
+        });
+    }
+    function showHistoryRanking(){ let rankings=JSON.parse(localStorage.getItem("cultureRankings")||"[]"); const container=document.getElementById("historyRankList"); if(rankings.length===0) { container.innerHTML="<div>✨ 暂无思想航迹，扬帆起航吧 ✨</div>"; } else { container.innerHTML=rankings.map((item,idx)=>`<div class="ranking-item"><span>${idx+1}. ${item.nickname || "匿名"} - ${item.score} 灵蕴</span><span>${item.date}</span></div>`).join(""); } document.getElementById("historyRankModal").classList.add("active"); }
     function exitGame(){ if(animationId) cancelAnimationFrame(animationId); gameActive=false; isAwaitingAnswer=false; isMoving=false; pendingLevelUp=false; currentCorrectCount=0; rewardPoints=0; currentDisplayRatio=0; targetRatio=0; initRemainingQuestions(); document.getElementById("questionModal").classList.remove("active"); document.getElementById("levelPassModal").classList.remove("active"); document.getElementById("rankingModal").classList.remove("active"); redrawAll(); updateUI(); applyLevelTheme(); }
     function resetGame(){ exitGame(); }
-    function initRemainingQuestions(){ remainingQuestionsByLevel={1:[],2:[],3:[]}; QUESTION_SET.forEach(q=>remainingQuestionsByLevel[q.level].push({...q})); for(let lvl of[1,2,3]) for(let i=remainingQuestionsByLevel[lvl].length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[remainingQuestionsByLevel[lvl][i],remainingQuestionsByLevel[lvl][j]]=[remainingQuestionsByLevel[lvl][j],remainingQuestionsByLevel[lvl][i]];} }
-    function getQuestionByLevel(level){ let pool=remainingQuestionsByLevel[level]; if(!pool||pool.length===0){ const original=QUESTION_SET.filter(q=>q.level===level); pool=original.map(q=>({...q})); remainingQuestionsByLevel[level]=pool; for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];} } return pool.shift(); }
-    function checkLevelCompletion(){ let stationInLevel=currentCorrectCount%STATIONS_PER_LEVEL; if(stationInLevel===0&&currentCorrectCount>0&&currentCorrectCount<TOTAL_STATIONS){ pendingLevelUp=true; gameActive=false; document.getElementById("levelPassMessage").innerHTML=`第 ${currentCorrectCount/STATIONS_PER_LEVEL} 关 · 文心大成<br>累计灵蕴 ${rewardPoints} 点！`; document.getElementById("levelPassModal").classList.add("active"); } }
+    function initRemainingQuestions() {
+        remainingQuestionsByLevel={1:[],2:[],3:[]};
+        QUESTION_SET.forEach(q=>{
+            remainingQuestionsByLevel[q.level].push({...q});
+        });
+        for(let lvl of[1,2,3]) {
+            for(let i=remainingQuestionsByLevel[lvl].length-1;i>0;i--){
+                const j=Math.floor(Math.random()*(i+1));
+                [remainingQuestionsByLevel[lvl][i],remainingQuestionsByLevel[lvl][j]]=[remainingQuestionsByLevel[lvl][j],remainingQuestionsByLevel[lvl][i]];
+            }
+        }
+    }
+    function getQuestionByLevel(level) {
+        let pool=remainingQuestionsByLevel[level];
+        if(!pool||pool.length===0){
+            const original=QUESTION_SET.filter(q=>q.level===level);
+            pool=original.map(q=>({...q}));
+            remainingQuestionsByLevel[level]=pool;
+            for(let i=pool.length-1;i>0;i--){
+                const j=Math.floor(Math.random()*(i+1));
+                [pool[i],pool[j]]=[pool[j],pool[i]];
+            }
+        }
+        return pool.shift();
+    }
+    function checkLevelCompletion(){ let stationInLevel=currentCorrectCount%STATIONS_PER_LEVEL; if(stationInLevel===0&&currentCorrectCount>0&&currentCorrectCount<TOTAL_STATIONS){ pendingLevelUp=true; gameActive=false; let levelNum = currentCorrectCount/STATIONS_PER_LEVEL; document.getElementById("levelPassMessage").innerHTML=`第 ${levelNum} 关 · 理论精粹<br>累计理论之光 ${rewardPoints} 点！`; document.getElementById("levelPassModal").classList.add("active"); } }
     function continueToNextLevel(){ document.getElementById("levelPassModal").classList.remove("active"); pendingLevelUp=false; gameActive=true; if(currentCorrectCount<TOTAL_STATIONS) moveToNextStation(); }
-    function startMoveToTarget(){ if(isMoving)return; isMoving=true; const startRatio=currentDisplayRatio,endRatio=targetRatio,duration=800,startTime=performance.now(); function step(now){ let elapsed=now-startTime; let t=Math.min(1,elapsed/duration); const ease=1-Math.pow(1-t,3); currentDisplayRatio=startRatio+(endRatio-startRatio)*ease; redrawAll(); if(t<1) animationId=requestAnimationFrame(step); else{ currentDisplayRatio=endRatio; redrawAll(); isMoving=false; animationId=null; if(gameActive&&currentCorrectCount<TOTAL_STATIONS&&!isAwaitingAnswer&&!pendingLevelUp) showQuestionForCurrentStation(); else if(currentCorrectCount===TOTAL_STATIONS) finishGame(); } } if(animationId) cancelAnimationFrame(animationId); animationId=requestAnimationFrame(step); }
+    function startMoveToTarget() {
+        if(isMoving)return;
+        isMoving=true;
+        const startRatio=currentDisplayRatio,endRatio=targetRatio,duration=800,startTime=performance.now();
+        function step(now){
+            let elapsed=now-startTime;
+            let t=Math.min(1,elapsed/duration);
+            const ease=1-Math.pow(1-t,3);
+            currentDisplayRatio=startRatio+(endRatio-startRatio)*ease;
+            redrawAll();
+            if(t<1) {
+                animationId=requestAnimationFrame(step);
+            } else{
+                currentDisplayRatio=endRatio;
+                redrawAll();
+                isMoving=false;
+                animationId=null;
+                if(gameActive&&currentCorrectCount<TOTAL_STATIONS&&!isAwaitingAnswer&&!pendingLevelUp) {
+                    showQuestionForCurrentStation();
+                } else if(currentCorrectCount===TOTAL_STATIONS) {
+                    finishGame();
+                }
+            }
+        }
+        if(animationId) cancelAnimationFrame(animationId);
+        animationId=requestAnimationFrame(step);
+    }
     function moveToNextStation(){ if(currentCorrectCount>=TOTAL_STATIONS){ finishGame(); return; } targetRatio=currentCorrectCount/TOTAL_STATIONS; if(Math.abs(currentDisplayRatio-targetRatio)<0.001){ if(gameActive&&!isAwaitingAnswer&&!pendingLevelUp) showQuestionForCurrentStation(); } else startMoveToTarget(); }
-    function showQuestionForCurrentStation(){ if(!gameActive||pendingLevelUp||currentCorrectCount>=TOTAL_STATIONS||isAwaitingAnswer)return; const level=getCurrentLevel(); currentStationQuestion=getQuestionByLevel(level); const modal=document.getElementById("questionModal"); document.getElementById("modalQuestion").innerText=currentStationQuestion.text; const modalOptionsDiv=document.getElementById("modalOptions"); modalOptionsDiv.innerHTML=""; currentStationQuestion.options.forEach((opt,idx)=>{ const optDiv=document.createElement("div"); optDiv.className="modal-opt"; const letter=String.fromCharCode(65+idx); optDiv.innerHTML=`<span class="opt-letter">${letter}</span><span>${opt}</span>`; optDiv.addEventListener("click",()=>{if(gameActive&&isAwaitingAnswer) handleAnswer(idx);}); modalOptionsDiv.appendChild(optDiv); }); document.getElementById("modalExplanation").innerHTML="📖 择善而从，文脉相承"; document.getElementById("modalExplanation").classList.remove("error"); modal.classList.add("active"); isAwaitingAnswer=true; }
-    function handleAnswer(selectedIdx){ if(!currentStationQuestion)return; const isCorrect=(selectedIdx===currentStationQuestion.correct); const correctAns=currentStationQuestion.options[currentStationQuestion.correct]; const modalExplanation=document.getElementById("modalExplanation"); if(isCorrect){ modalExplanation.classList.remove("error"); modalExplanation.innerHTML=`✅ 妙哉！ "${correctAns}" 正解。灵蕴 +10！ 🎉`; currentCorrectCount++; modifyReward(10); updateUI(); redrawAll(); document.getElementById("questionModal").classList.remove("active"); isAwaitingAnswer=false; if(currentCorrectCount===TOTAL_STATIONS) finishGame(); else{ checkLevelCompletion(); if(!pendingLevelUp) moveToNextStation(); } } else{ modalExplanation.classList.add("error"); modalExplanation.innerHTML=`❌ 误入歧途。正确答案：${correctAns}<br>📖 解析：${currentStationQuestion.explanation}<br>💡 灵蕴 -5，再接再厉。`; modifyReward(-5); const canvasEl=document.getElementById("riverCanvas"); canvasEl.style.transform="translateX(3px)"; setTimeout(()=>canvasEl.style.transform="",150); } }
+    function showQuestionForCurrentStation() {
+        if(!gameActive||pendingLevelUp||currentCorrectCount>=TOTAL_STATIONS||isAwaitingAnswer)return;
+        const level=getCurrentLevel();
+        currentStationQuestion=getQuestionByLevel(level);
+        const modal=document.getElementById("questionModal");
+        document.getElementById("modalQuestion").innerText=currentStationQuestion.text;
+        const modalOptionsDiv=document.getElementById("modalOptions");
+        modalOptionsDiv.innerHTML="";
+        currentStationQuestion.options.forEach((opt,idx)=>{
+            const optDiv=document.createElement("div");
+            optDiv.className="modal-opt";
+            const letter=String.fromCharCode(65+idx);
+            optDiv.innerHTML=`<span class="opt-letter">${letter}</span><span>${opt}</span>`;
+            optDiv.addEventListener("click",()=>{
+                if(gameActive&&isAwaitingAnswer) handleAnswer(idx);
+            });
+            modalOptionsDiv.appendChild(optDiv);
+        });
+        document.getElementById("modalExplanation").innerHTML="📖 择善而从，真理领航";
+        document.getElementById("modalExplanation").classList.remove("error");
+        // 隐藏下一题按钮
+        document.getElementById("nextQuestionBtn").style.display="none";
+        modal.classList.add("active");
+        isAwaitingAnswer=true;
+    }
+    function handleAnswer(selectedIdx) {
+        if(!currentStationQuestion)return;
+        const isCorrect=(selectedIdx===currentStationQuestion.correct);
+        const correctAns=currentStationQuestion.options[currentStationQuestion.correct];
+        const modalExplanation=document.getElementById("modalExplanation");
+        const nextQuestionBtn=document.getElementById("nextQuestionBtn");
+        if(isCorrect){
+            modalExplanation.classList.remove("error");
+            modalExplanation.innerHTML=`✅ 妙哉！ "${correctAns}" 正解。理论之光 +10！ 🎉`;
+            currentCorrectCount++;
+            modifyReward(10);
+            updateUI();
+            redrawAll();
+            isAwaitingAnswer=false;
+            // 显示下一题按钮
+            nextQuestionBtn.style.display="block";
+            // 根据是否为最后一题设置按钮文本
+            if(currentCorrectCount===TOTAL_STATIONS){
+                nextQuestionBtn.innerHTML="🏆 完成";
+            } else{
+                nextQuestionBtn.innerHTML="➡️ 下一题";
+            }
+        } else{
+            modalExplanation.classList.add("error");
+            modalExplanation.innerHTML=`❌ 误入歧途。正确答案：${correctAns}<br>📖 解析：${currentStationQuestion.explanation}<br>💡 理论之光 -5，再接再厉。`;
+            modifyReward(-5);
+            const canvasEl=document.getElementById("riverCanvas");
+            canvasEl.style.transform="translateX(3px)";
+            setTimeout(()=>canvasEl.style.transform="",150);
+        }
+    }
     function finishGame(){ gameActive=false; isAwaitingAnswer=false; pendingLevelUp=false; document.getElementById("questionModal").classList.remove("active"); document.getElementById("levelPassModal").classList.remove("active"); currentDisplayRatio=1; redrawAll(); updateUI(); applyLevelTheme(); const isPerfect=(rewardPoints===180); if(isPerfect){ for(let i=0;i<5;i++){ setTimeout(()=>{ canvasConfetti({particleCount:180,spread:100,origin:{y:0.6},startVelocity:25,colors:['#ffd966','#ffaa33','#ff7e33']}); },i*150); } const climaxDiv=document.getElementById("perfectClimaxOverlay"); climaxDiv.classList.add("active"); setTimeout(()=>{ climaxDiv.classList.remove("active"); },4000); } showRankingModal(rewardPoints); }
-    function startGame(){ if(gameActive) return; resetGame(); gameActive=true; currentCorrectCount=0; rewardPoints=0; currentDisplayRatio=0; targetRatio=0; initRemainingQuestions(); updateUI(); applyLevelTheme(); redrawAll(); moveToNextStation(); }
+    function startGame(){ 
+        if(gameActive) return; 
+        // 如果已经有进度，从暂停前的进度继续
+        if(currentCorrectCount > 0){
+            gameActive=true;
+            updateUI();
+            applyLevelTheme();
+            redrawAll();
+            moveToNextStation();
+        } else {
+            // 否则，开始新游戏
+            resetGame();
+            gameActive=true;
+            currentCorrectCount=0;
+            rewardPoints=0;
+            currentDisplayRatio=0;
+            targetRatio=0;
+            initRemainingQuestions();
+            updateUI();
+            applyLevelTheme();
+            redrawAll();
+            moveToNextStation();
+        }
+    }
     function isPointInAchievement(px,py,ach){ let dx=px-ach.x, dy=py-ach.y; return Math.sqrt(dx*dx+dy*dy)<32; }
     function showAchievementDetail(achievement){ document.getElementById("achievementTitle").innerHTML=`${achievement.emoji} ${achievement.title}`; document.getElementById("achievementPhoto").innerHTML=`<span style="font-size:5rem;">${achievement.photoEmoji||achievement.emoji}</span><p>【${achievement.text}】</p>`; document.getElementById("achievementDesc").innerHTML=achievement.description; document.getElementById("achievementModal").classList.add("active"); }
     function closeAchievementModal(){ document.getElementById("achievementModal").classList.remove("active"); }
-    function setupCanvasClick(){ canvas.addEventListener("click",(e)=>{ const rect=canvas.getBoundingClientRect(); const scaleX=canvas.width/rect.width, scaleY=canvas.height/rect.height; const mouseX=(e.clientX-rect.left)*scaleX, mouseY=(e.clientY-rect.top)*scaleY; for(let ach of ACHIEVEMENTS) if(isPointInAchievement(mouseX,mouseY,ach)){ showAchievementDetail(ach); return; } }); }
-    function init(){ canvas=document.getElementById("riverCanvas"); ctx=canvas.getContext("2d"); canvas.width=1000; canvas.height=550; curvePoints=buildSmoothCurve(pathPoints,30); setupCanvasClick(); initRemainingQuestions(); document.getElementById("startGameBtn").addEventListener("click",startGame); document.getElementById("exitGameBtn").addEventListener("click",exitGame); document.getElementById("resetGameBtn").addEventListener("click",resetGame); document.getElementById("closeAchievementBtn").addEventListener("click",closeAchievementModal); document.getElementById("exitDuringQuizBtn").addEventListener("click",()=>{document.getElementById("questionModal").classList.remove("active");exitGame();}); document.getElementById("continueToNextLevelBtn").addEventListener("click",continueToNextLevel); document.getElementById("quitAfterLevelBtn").addEventListener("click",()=>{document.getElementById("levelPassModal").classList.remove("active");exitGame();}); document.getElementById("closeRankingBtn").addEventListener("click",()=>document.getElementById("rankingModal").classList.remove("active")); document.getElementById("historyRankBtn").addEventListener("click",showHistoryRanking); document.getElementById("closeHistoryBtn").addEventListener("click",()=>document.getElementById("historyRankModal").classList.remove("active")); redrawAll(); updateUI(); applyLevelTheme(); }
+    function setupCanvasClick() {
+        canvas.addEventListener("click",(e)=>{
+            const rect=canvas.getBoundingClientRect();
+            const scaleX=canvas.width/rect.width, scaleY=canvas.height/rect.height;
+            const mouseX=(e.clientX-rect.left)*scaleX, mouseY=(e.clientY-rect.top)*scaleY;
+            for(let ach of ACHIEVEMENTS){
+                if(isPointInAchievement(mouseX,mouseY,ach)){
+                    showAchievementDetail(ach);
+                    return;
+                }
+            }
+        });
+    }
+    function resizeCanvas() {
+        const container = canvas.parentElement;
+        const containerWidth = container.clientWidth;
+        const aspectRatio = 1000 / 550; // 原始宽高比
+        const newWidth = containerWidth;
+        const newHeight = Math.round(newWidth / aspectRatio);
+        
+        // 计算缩放比例
+        const scaleX = newWidth / 1000;
+        const scaleY = newHeight / 550;
+        
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        canvasWidth = newWidth;
+        canvasHeight = newHeight;
+        
+        // 缩放路径点（基于原始数据）
+        pathPoints = ORIGINAL_PATH_POINTS.map(point => ({
+            x: point.x * scaleX,
+            y: point.y * scaleY
+        }));
+        
+        // 重新计算曲线点
+        curvePoints = buildSmoothCurve(pathPoints, 30);
+        
+        // 缩放成就图标位置（基于原始数据）
+        ACHIEVEMENTS = ORIGINAL_ACHIEVEMENTS.map(achievement => ({
+            ...achievement,
+            x: achievement.x * scaleX,
+            y: achievement.y * scaleY
+        }));
+        
+        redrawAll();
+    }
+
+    function init() {
+        canvas=document.getElementById("riverCanvas");
+        ctx=canvas.getContext("2d");
+        
+        // 初始调整Canvas大小
+        resizeCanvas();
+        
+        // 监听窗口大小变化
+        window.addEventListener("resize", resizeCanvas);
+        
+        setupCanvasClick();
+        initRemainingQuestions();
+        document.getElementById("startGameBtn").addEventListener("click",startGame);
+        document.getElementById("exitGameBtn").addEventListener("click",exitGame);
+        document.getElementById("resetGameBtn").addEventListener("click",resetGame);
+        document.getElementById("closeAchievementBtn").addEventListener("click",closeAchievementModal);
+        document.getElementById("exitDuringQuizBtn").addEventListener("click",()=>{
+            document.getElementById("questionModal").classList.remove("active");
+            gameActive = false;
+            isAwaitingAnswer = false;
+        });
+        document.getElementById("continueToNextLevelBtn").addEventListener("click",continueToNextLevel);
+        document.getElementById("quitAfterLevelBtn").addEventListener("click",()=>{
+            document.getElementById("levelPassModal").classList.remove("active");
+            gameActive = false;
+            isAwaitingAnswer = false;
+            pendingLevelUp = false;
+        });
+        document.getElementById("closeRankingBtn").addEventListener("click",()=>document.getElementById("rankingModal").classList.remove("active"));
+        document.getElementById("historyRankBtn").addEventListener("click",showHistoryRanking);
+        document.getElementById("closeHistoryBtn").addEventListener("click",()=>document.getElementById("historyRankModal").classList.remove("active"));
+        // 为下一题按钮添加点击事件监听器
+        document.getElementById("nextQuestionBtn").addEventListener("click",()=>{
+            document.getElementById("questionModal").classList.remove("active");
+            if(currentCorrectCount===TOTAL_STATIONS){
+                finishGame();
+            } else{
+                checkLevelCompletion();
+                if(!pendingLevelUp) moveToNextStation();
+            }
+        });
+        redrawAll();
+        updateUI();
+        applyLevelTheme();
+    }
 
     init();
 </script>
