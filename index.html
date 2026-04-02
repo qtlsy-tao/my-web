@@ -463,6 +463,7 @@
         <div class="reward" id="rewardDisplay">⭐ 理论之光: 0</div>
         <div class="btn-group">
             <button class="start-btn" id="startGameBtn">🚩 扬帆起航</button>
+            <button class="history-btn" id="modeSelectBtn">🎮 答题模式</button>
             <button class="history-btn" id="historyRankBtn">📜 思想旧榜</button>
             <button class="exit-btn" id="exitGameBtn">🚪 暂离归港</button>
             <button class="reset-btn" id="resetGameBtn">🔄 重开纪元</button>
@@ -538,6 +539,30 @@
     </div>
 </div>
 
+<!-- 答题模式选择模态框 -->
+<div id="modeSelectModal" class="level-pass-modal">
+    <div class="level-pass-card">
+        <h2 style="color:#b64926; margin-bottom:24px;">🎮 选择答题模式</h2>
+        <p style="font-size:1.1rem; line-height:1.6; margin-bottom:32px; text-align:left;">请选择您想要的答题模式：</p>
+        <div class="pass-buttons" style="flex-direction: column; gap: 16px;">
+            <button id="fixedModeBtn" class="pass-btn continue-btn" style="background:#2c7a4d;">📋 固定题目顺序</button>
+            <button id="randomModeBtn" class="pass-btn continue-btn" style="background:#3a6ea5;">🎲 随机题库模式</button>
+            <button id="cancelModeSelectBtn" class="pass-btn quit-pass-btn" style="background:#8b5a2b;">🚪 取消</button>
+        </div>
+    </div>
+</div>
+
+<!-- 模式切换警告模态框 -->
+<div id="modeWarningModal" class="level-pass-modal">
+    <div class="level-pass-card">
+        <h2 style="color:#c0392b; margin-bottom:24px;">⚠️ 警告</h2>
+        <p style="font-size:1.1rem; line-height:1.6; margin-bottom:32px; text-align:left;">当前游戏尚未完成，请先完成所有题目或重置游戏后再切换答题模式。</p>
+        <div class="pass-buttons" style="flex-direction: column; gap: 16px;">
+            <button id="closeWarningBtn" class="pass-btn continue-btn" style="background:#8b5a2b;">我知道了</button>
+        </div>
+    </div>
+</div>
+
 <!-- 征程开始模态框 -->
 <div id="startJourneyModal" class="level-pass-modal">
     <div class="level-pass-card">
@@ -563,6 +588,519 @@
         { text: "新时代坚持和发展中国特色社会主义，对道路问题的根本要求是：", options: ["根据形势变化随时调整道路方向", "在两种错误倾向之间寻求折中", "既不走封闭僵化的老路，也不走改旗易帜的邪路"], correct: 2, level: 3, explanation: "一以贯之，就是要有“乱云飞渡仍从容”的战略定力。中国特色社会主义道路必须毫不动摇坚持、与时俱进发展。", historical_context: "习近平总书记强调：“道路问题是关系党的事业兴衰成败第一位的问题，道路就是党的生命。”前进道路上，始终存在“改旗易帜”和“封闭僵化”两种错误倾向。" },
         { text: "确保党不变质、不变色、不变味，新时代党的建设必须坚持的根本方针是：", options: ["开展集中性教育运动", "全面从严治党永远在路上，党的自我革命永远在路上", "以经济建设为中心，党建可以适当放松"], correct: 1, level: 3, explanation: "全面从严治党是党永葆生机活力的必由之路。党的自我革命是跳出治乱兴衰历史周期率的第二个答案，必须保持永远在路上的清醒和坚定。", historical_context: "党的二十大报告指出，我们党必须时刻保持解决大党独有难题的清醒和坚定。大党独有难题包括如何始终不忘初心、牢记使命，如何始终统一思想、统一意志等。" }
     ];
+    
+    // ======================= 随机题库  =======================
+    const QUESTION_SET_RANDOM = [
+    // ======================= Level 1 (基础理论) 共24题 =======================
+    {
+        text: "中国特色社会主义最本质的特征是什么？",
+        options: ["人民当家作主", "中国共产党领导", "依法治国", "公有制为主体"],
+        correct: 1,
+        level: 1,
+        explanation: "中国共产党领导是中国特色社会主义最本质的特征，是中国特色社会主义制度的最大优势。"
+    },
+    {
+        text: "改革开放以来，我们取得一切成绩和进步的根本原因是：",
+        options: ["坚持以经济建设为中心", "开辟了中国特色社会主义道路，形成了中国特色社会主义理论体系", "坚持四项基本原则", "坚持改革开放"],
+        correct: 1,
+        level: 1,
+        explanation: "改革开放以来，我们取得一切成绩和进步的根本原因，归结起来就是：开辟了中国特色社会主义道路，形成了中国特色社会主义理论体系，确立了中国特色社会主义制度，发展了中国特色社会主义文化。"
+    },
+    {
+        text: "社会主义的根本任务是：",
+        options: ["解放和发展社会生产力", "实现共同富裕", "建设社会主义现代化国家", "实现中华民族伟大复兴"],
+        correct: 0,
+        level: 1,
+        explanation: "社会主义的根本任务是解放和发展社会生产力，这是由社会主义的本质决定的。"
+    },
+    {
+        text: "“四个自信”的核心是：",
+        options: ["道路自信", "理论自信", "制度自信", "文化自信"],
+        correct: 0,
+        level: 1,
+        explanation: "道路自信是根本，道路问题关系党的事业兴衰成败。"
+    },
+    {
+        text: "新时代坚持和发展中国特色社会主义的总任务是：",
+        options: ["全面建成小康社会", "全面深化改革", "实现社会主义现代化和中华民族伟大复兴", "全面依法治国"],
+        correct: 2,
+        level: 1,
+        explanation: "总任务是实现社会主义现代化和中华民族伟大复兴，在全面建成小康社会的基础上分两步走。"
+    },
+    {
+        text: "“两个一百年”奋斗目标中，第一个百年奋斗目标是指：",
+        options: ["基本实现社会主义现代化", "全面建成小康社会", "进入创新型国家前列", "建成社会主义现代化强国"],
+        correct: 1,
+        level: 1,
+        explanation: "第一个百年奋斗目标是在中国共产党成立100年时全面建成小康社会。"
+    },
+    {
+        text: "中国特色社会主义进入新时代，我国社会主要矛盾已经转化为：",
+        options: ["人民日益增长的物质文化需要同落后的社会生产之间的矛盾", "人民日益增长的美好生活需要和不平衡不充分的发展之间的矛盾", "生产力与生产关系之间的矛盾", "经济基础与上层建筑之间的矛盾"],
+        correct: 1,
+        level: 1,
+        explanation: "党的十九大报告指出，中国特色社会主义进入新时代，我国社会主要矛盾已经转化为人民日益增长的美好生活需要和不平衡不充分的发展之间的矛盾。"
+    },
+    {
+        text: "全面深化改革的总目标是：",
+        options: ["完善和发展中国特色社会主义制度，推进国家治理体系和治理能力现代化", "建设社会主义现代化强国", "实现共同富裕", "全面建成小康社会"],
+        correct: 0,
+        level: 1,
+        explanation: "全面深化改革的总目标是完善和发展中国特色社会主义制度、推进国家治理体系和治理能力现代化。"
+    },
+    {
+        text: "全面推进依法治国的总目标是：",
+        options: ["建设中国特色社会主义法治体系，建设社会主义法治国家", "建设法治政府", "建设公正高效权威的司法制度", "建设法治社会"],
+        correct: 0,
+        level: 1,
+        explanation: "全面推进依法治国的总目标是建设中国特色社会主义法治体系，建设社会主义法治国家。"
+    },
+    {
+        text: "新时代党的建设总要求中，把什么摆在首位？",
+        options: ["思想建设", "组织建设", "作风建设", "政治建设"],
+        correct: 3,
+        level: 1,
+        explanation: "党的十九大明确提出党的政治建设这个重大命题，强调党的政治建设是党的根本性建设，决定党的建设方向和效果。"
+    },
+    {
+        text: "新发展理念中，引领发展的第一动力是：",
+        options: ["协调", "绿色", "开放", "创新"],
+        correct: 3,
+        level: 1,
+        explanation: "创新是引领发展的第一动力，必须把创新摆在国家发展全局的核心位置。"
+    },
+    {
+        text: "中国特色社会主义事业总体布局是：",
+        options: ["四个全面", "五位一体", "六个坚持", "七个战略"],
+        correct: 1,
+        level: 1,
+        explanation: "中国特色社会主义事业的总体布局是经济建设、政治建设、文化建设、社会建设、生态文明建设五位一体。"
+    },
+    {
+        text: "“四个全面”战略布局中，具有突破性和先导性的关键环节是：",
+        options: ["全面建成小康社会", "全面深化改革", "全面依法治国", "全面从严治党"],
+        correct: 1,
+        level: 1,
+        explanation: "全面深化改革是“四个全面”战略布局中具有突破性和先导性的关键环节。"
+    },
+    {
+        text: "中国共产党的根本宗旨是：",
+        options: ["全心全意为人民服务", "实现共产主义", "坚持党的领导", "建设社会主义现代化强国"],
+        correct: 0,
+        level: 1,
+        explanation: "全心全意为人民服务是中国共产党的根本宗旨，是党一切行动的根本出发点和落脚点。"
+    },
+    {
+        text: "中国特色社会主义政治发展道路，关键是：",
+        options: ["坚持党的领导", "坚持人民当家作主", "坚持依法治国", "坚持民主集中制"],
+        correct: 0,
+        level: 1,
+        explanation: "党的领导是中国特色社会主义政治发展道路的关键，是人民当家作主和依法治国的根本保证。"
+    },
+    {
+        text: "坚持和发展中国特色社会主义，必须坚持的马克思主义根本观点是：",
+        options: ["实事求是", "群众路线", "独立自主", "与时俱进"],
+        correct: 0,
+        level: 1,
+        explanation: "实事求是是马克思主义的根本观点，是中国共产党人认识世界、改造世界的根本要求。"
+    },
+    {
+        text: "党在新时代的强军目标是：",
+        options: ["建设一支听党指挥、能打胜仗、作风优良的人民军队", "建设世界一流军队", "实现国防和军队现代化", "建设信息化军队"],
+        correct: 0,
+        level: 1,
+        explanation: "党在新时代的强军目标是建设一支听党指挥、能打胜仗、作风优良的人民军队。"
+    },
+    {
+        text: "中国特色社会主义制度的最大优势是：",
+        options: ["人民当家作主", "依法治国", "中国共产党领导", "民主集中制"],
+        correct: 2,
+        level: 1,
+        explanation: "中国共产党领导是中国特色社会主义制度的最大优势，党是最高政治领导力量。"
+    },
+    {
+        text: "“两个确立”是指：",
+        options: ["确立社会主义初级阶段基本路线，确立改革开放基本国策", "确立习近平同志党中央的核心、全党的核心地位，确立习近平新时代中国特色社会主义思想的指导地位", "确立全面建成小康社会目标，确立中华民族伟大复兴梦想", "确立“五位一体”总体布局，确立“四个全面”战略布局"],
+        correct: 1,
+        level: 1,
+        explanation: "“两个确立”是党在新时代取得的重大政治成果，是推动党和国家事业取得历史性成就、发生历史性变革的决定性因素。"
+    },
+    {
+        text: "习近平新时代中国特色社会主义思想的核心内容是：",
+        options: ["“八个明确”和“十四个坚持”", "“五位一体”和“四个全面”", "“两个维护”和“四个意识”", "“四个自信”和“两个确立”"],
+        correct: 0,
+        level: 1,
+        explanation: "习近平新时代中国特色社会主义思想的核心内容是“八个明确”和“十四个坚持”。"
+    },
+    {
+        text: "中国特色社会主义进入新时代，意味着近代以来久经磨难的中华民族迎来了从站起来、富起来到什么的伟大飞跃？",
+        options: ["强起来", "大起来", "好起来", "优起来"],
+        correct: 0,
+        level: 1,
+        explanation: "中国特色社会主义进入新时代，意味着中华民族迎来了从站起来、富起来到强起来的伟大飞跃。"
+    },
+    {
+        text: "我国的基本经济制度是：",
+        options: ["公有制为主体、多种所有制经济共同发展", "私有制为主体、多种所有制经济共同发展", "混合所有制为主体", "国有经济为主体"],
+        correct: 0,
+        level: 1,
+        explanation: "我国的基本经济制度是公有制为主体、多种所有制经济共同发展，这是中国特色社会主义制度的重要支柱。"
+    },
+    {
+        text: "社会主义民主政治的本质和核心是：",
+        options: ["依法治国", "人民当家作主", "党的领导", "民主集中制"],
+        correct: 1,
+        level: 1,
+        explanation: "人民当家作主是社会主义民主政治的本质和核心，是中国特色社会主义政治发展道路的必然要求。"
+    },
+    {
+        text: "“两个维护”是指：",
+        options: ["坚决维护习近平总书记党中央的核心、全党的核心地位，坚决维护党中央权威和集中统一领导", "坚决维护党的团结统一，坚决维护社会主义制度", "坚决维护国家主权安全，坚决维护发展利益", "坚决维护改革开放政策，坚决维护社会主义市场经济体制"],
+        correct: 0,
+        level: 1,
+        explanation: "“两个维护”是党的十八大以来我们党的重大政治成果和宝贵经验，是最根本的政治纪律和政治规矩。"
+    },
+
+    // ======================= Level 2 (新时代理论深化) 共24题 =======================
+    {
+        text: "新时代坚持和发展中国特色社会主义，必须坚持什么样的发展思想？",
+        options: ["以人民为中心", "以经济建设为中心", "以改革创新为中心", "以稳定为中心"],
+        correct: 0,
+        level: 2,
+        explanation: "坚持以人民为中心的发展思想，是马克思主义政治经济学的根本立场，体现了党的理想信念、性质宗旨、初心使命。"
+    },
+    {
+        text: "中国式现代化的五大特征不包括以下哪一项？",
+        options: ["人口规模巨大的现代化", "全体人民共同富裕的现代化", "物质文明和精神文明相协调的现代化", "资本扩张导向的现代化"],
+        correct: 3,
+        level: 2,
+        explanation: "中国式现代化是人口规模巨大、全体人民共同富裕、物质文明和精神文明相协调、人与自然和谐共生、走和平发展道路的现代化。"
+    },
+    {
+        text: "高质量发展是全面建设社会主义现代化国家的首要任务。其最终目标是：",
+        options: ["GDP高速增长", "实现人民对美好生活的向往", "成为世界第一大经济体", "产业全面升级"],
+        correct: 1,
+        level: 2,
+        explanation: "高质量发展的最终目标是满足人民日益增长的美好生活需要，实现人的全面发展和社会全面进步。"
+    },
+    {
+        text: "“一带一路”倡议秉持的原则是：",
+        options: ["共商共建共享", "互利共赢", "开放包容", "平等互信"],
+        correct: 0,
+        level: 2,
+        explanation: "“一带一路”倡议秉持共商共建共享原则，推动沿线国家政策沟通、设施联通、贸易畅通、资金融通、民心相通。"
+    },
+    {
+        text: "总体国家安全观的根本是：",
+        options: ["政治安全", "经济安全", "军事安全", "人民安全"],
+        correct: 3,
+        level: 2,
+        explanation: "总体国家安全观坚持以人民安全为宗旨，以政治安全为根本，以经济安全为基础，以军事、文化、社会安全为保障。"
+    },
+    {
+        text: "构建人类命运共同体，要求建设什么样的世界？",
+        options: ["持久和平、普遍安全、共同繁荣、开放包容、清洁美丽", "单极世界、霸权稳定", "西方主导的全球化", "零和博弈的世界"],
+        correct: 0,
+        level: 2,
+        explanation: "构建人类命运共同体，建设持久和平、普遍安全、共同繁荣、开放包容、清洁美丽的世界，是新时代中国特色大国外交的总目标。"
+    },
+    {
+        text: "新时代全面从严治党的核心是：",
+        options: ["加强党的长期执政能力建设", "保持党的先进性和纯洁性", "加强党的领导", "反腐败斗争"],
+        correct: 2,
+        level: 2,
+        explanation: "全面从严治党的核心是加强党的领导，确保党始终成为中国特色社会主义事业的坚强领导核心。"
+    },
+    {
+        text: "“绿水青山就是金山银山”理念是新时代什么建设的重要理念？",
+        options: ["经济建设", "政治建设", "文化建设", "生态文明建设"],
+        correct: 3,
+        level: 2,
+        explanation: "“两山”理念是习近平生态文明思想的核心内容，指明了人与自然和谐共生的现代化路径。"
+    },
+    {
+        text: "新时代脱贫攻坚精神的内涵是：",
+        options: ["上下同心、尽锐出战、精准务实、开拓创新、攻坚克难、不负人民", "自力更生、艰苦创业", "团结协作、无私奉献", "求真务实、开拓进取"],
+        correct: 0,
+        level: 2,
+        explanation: "脱贫攻坚精神是中国共产党性质宗旨、中国人民意志品质、中华民族精神的生动写照。"
+    },
+    {
+        text: "全过程人民民主是社会主义民主政治的什么属性？",
+        options: ["本质属性", "外在属性", "次要属性", "阶段性属性"],
+        correct: 0,
+        level: 2,
+        explanation: "全过程人民民主是社会主义民主政治的本质属性，实现了过程民主和成果民主、程序民主和实质民主的统一。"
+    },
+    {
+        text: "新时代党的自我革命的“六个必须”不包括：",
+        options: ["必须坚持以党的政治建设为统领", "必须坚持严的主基调不动摇", "必须坚持发扬钉钉子精神加强作风建设", "必须坚持全面私有化改革"],
+        correct: 3,
+        level: 2,
+        explanation: "党的自我革命必须坚持马克思主义政党本色，全面私有化与中国特色社会主义本质相悖。"
+    },
+    {
+        text: "“两个毫不动摇”是指：",
+        options: ["毫不动摇巩固和发展公有制经济，毫不动摇鼓励、支持、引导非公有制经济发展", "毫不动摇坚持改革开放，毫不动摇坚持四项基本原则", "毫不动摇发展国有经济，毫不动摇限制民营经济", "毫不动摇坚持党的领导，毫不动摇坚持依法治国"],
+        correct: 0,
+        level: 2,
+        explanation: "“两个毫不动摇”是坚持和完善社会主义基本经济制度的重要方针。"
+    },
+    {
+        text: "新时代文化建设的根本任务是：",
+        options: ["建设社会主义文化强国", "培育和践行社会主义核心价值观", "提高国家文化软实力", "繁荣发展社会主义文艺"],
+        correct: 1,
+        level: 2,
+        explanation: "培育和践行社会主义核心价值观是新时代文化建设的根本任务，是凝魂聚气、强基固本的基础工程。"
+    },
+    {
+        text: "中国特色大国外交要推动构建：",
+        options: ["新型国际关系", "人类命运共同体", "和谐世界", "全球治理体系"],
+        correct: 1,
+        level: 2,
+        explanation: "中国特色大国外交要推动构建新型国际关系，推动构建人类命运共同体。"
+    },
+    {
+        text: "新时代“枫桥经验”的核心是：",
+        options: ["坚持和贯彻党的群众路线", "坚持依法治理", "坚持综合治理", "坚持源头治理"],
+        correct: 0,
+        level: 2,
+        explanation: "新时代“枫桥经验”的核心是坚持和贯彻党的群众路线，在党的领导下充分发动群众、组织群众、依靠群众解决群众自己的事情。"
+    },
+    {
+        text: "伟大建党精神的内涵是：",
+        options: ["坚持真理、坚守理想，践行初心、担当使命，不怕牺牲、英勇斗争，对党忠诚、不负人民", "自力更生、艰苦创业", "实事求是、与时俱进", "解放思想、开拓创新"],
+        correct: 0,
+        level: 2,
+        explanation: "伟大建党精神是中国共产党的精神之源，集中体现了党的坚定信念、根本宗旨、优良作风。"
+    },
+    {
+        text: "新时代做好“三农”工作的总抓手是：",
+        options: ["乡村振兴战略", "农业现代化", "农村改革", "脱贫攻坚"],
+        correct: 0,
+        level: 2,
+        explanation: "实施乡村振兴战略是新时代做好“三农”工作的总抓手，是关系全面建设社会主义现代化国家的全局性、历史性任务。"
+    },
+    {
+        text: "新时代科技创新的“四个面向”不包括：",
+        options: ["面向世界科技前沿", "面向经济主战场", "面向国家重大需求", "面向资本增值"],
+        correct: 3,
+        level: 2,
+        explanation: "科技创新要坚持面向世界科技前沿、面向经济主战场、面向国家重大需求、面向人民生命健康。"
+    },
+    {
+        text: "我国全过程人民民主的完整链条包括：",
+        options: ["民主选举、民主协商、民主决策、民主管理、民主监督", "民主选举、民主决策", "民主协商、民主管理", "民主选举、民主监督"],
+        correct: 0,
+        level: 2,
+        explanation: "全过程人民民主实现了民主选举、民主协商、民主决策、民主管理、民主监督各个环节的贯通。"
+    },
+    {
+        text: "新时代党的组织路线强调要建设什么样的干部队伍？",
+        options: ["忠诚干净担当", "革命化年轻化知识化专业化", "德才兼备", "以德为先"],
+        correct: 0,
+        level: 2,
+        explanation: "新时代党的组织路线强调要建设忠诚干净担当的高素质干部队伍。"
+    },
+    {
+        text: "“碳达峰、碳中和”目标体现了中国应对气候变化的什么担当？",
+        options: ["负责任大国的担当", "发展中国家的底线", "被动应对的姿态", "激进减排的立场"],
+        correct: 0,
+        level: 2,
+        explanation: "“双碳”目标彰显了中国积极应对气候变化、推动构建人类命运共同体的大国担当。"
+    },
+    {
+        text: "新时代国家安全工作的中心是：",
+        options: ["政治安全", "人民安全", "经济安全", "军事安全"],
+        correct: 1,
+        level: 2,
+        explanation: "新时代国家安全工作必须坚持以人民安全为宗旨，以人民为中心是总体国家安全观的根本要求。"
+    },
+    {
+        text: "“铸牢中华民族共同体意识”的核心是：",
+        options: ["引导各族人民牢固树立休戚与共、荣辱与共、生死与共、命运与共的共同体理念", "统一语言文字", "消除民族差异", "实行民族自治"],
+        correct: 0,
+        level: 2,
+        explanation: "铸牢中华民族共同体意识是新时代党的民族工作的主线，要引导各族人民牢固树立“四个与共”的共同体理念。"
+    },
+    {
+        text: "新时代坚持和发展中国特色社会主义，必须统筹哪两件大事？",
+        options: ["发展和安全", "改革和稳定", "国内和国际", "经济和生态"],
+        correct: 0,
+        level: 2,
+        explanation: "要统筹发展和安全，增强忧患意识，做到居安思危，是我们党治国理政的一个重大原则。"
+    },
+
+    // ======================= Level 3 (深度理论与实践要求) 共24题 =======================
+    {
+        text: "“十个明确”中，明确中国特色社会主义最本质的特征是什么？",
+        options: ["中国共产党领导", "人民民主专政", "社会主义市场经济", "依法治国"],
+        correct: 0,
+        level: 3,
+        explanation: "“十个明确”第一条就明确中国特色社会主义最本质的特征是中国共产党领导，突出党的领导的最大优势。"
+    },
+    {
+        text: "新时代坚持和发展中国特色社会主义，必须坚持什么样的战略定力？",
+        options: ["既不走封闭僵化的老路，也不走改旗易帜的邪路", "以经济建设为中心不动摇", "坚持改革开放", "坚持四项基本原则"],
+        correct: 0,
+        level: 3,
+        explanation: "新时代一以贯之坚持和发展中国特色社会主义，要有“乱云飞渡仍从容”的战略定力，始终不渝走中国特色社会主义道路。"
+    },
+    {
+        text: "关于“新时代”与“社会主义初级阶段”的关系，以下哪项理解最为准确？",
+        options: ["进入新时代意味着我国已经超越了社会主义初级阶段", "新时代是社会主义初级阶段中的一个新的发展阶段", "新时代与社会主义初级阶段是相互矛盾的两个判断", "新时代是对初级阶段的否定"],
+        correct: 1,
+        level: 3,
+        explanation: "新时代不是对初级阶段的否定，而是初级阶段中的一个新的发展阶段，具有新的阶段性特征。"
+    },
+    {
+        text: "习近平新时代中国特色社会主义思想的历史地位是：",
+        options: ["马克思主义中国化时代化的最新成果", "中国特色社会主义理论体系的组成部分", "中华文化和中国精神的时代精华", "以上都是"],
+        correct: 3,
+        level: 3,
+        explanation: "习近平新时代中国特色社会主义思想是当代中国马克思主义、二十一世纪马克思主义，是中华文化和中国精神的时代精华。"
+    },
+    {
+        text: "“两个结合”是指：",
+        options: ["把马克思主义基本原理同中国具体实际相结合、同中华优秀传统文化相结合", "把社会主义与市场经济相结合", "把党的领导与依法治国相结合", "把改革与开放相结合"],
+        correct: 0,
+        level: 3,
+        explanation: "“两个结合”是推进马克思主义中国化时代化的根本途径，开辟了马克思主义中国化时代化新境界。"
+    },
+    {
+        text: "中国式现代化的本质要求不包括：",
+        options: ["坚持中国共产党领导", "实现高质量发展", "发展全过程人民民主", "输出中国模式"],
+        correct: 3,
+        level: 3,
+        explanation: "中国式现代化的本质要求包括坚持党的领导、实现高质量发展、发展全过程人民民主等，不输出模式，不搞扩张。"
+    },
+    {
+        text: "“三个务必”是指：",
+        options: ["务必不忘初心、牢记使命，务必谦虚谨慎、艰苦奋斗，务必敢于斗争、善于斗争", "务必保持谦虚谨慎、不骄不躁，务必保持艰苦奋斗", "务必解放思想、实事求是，务必与时俱进、求真务实", "务必坚持真理、修正错误，务必坚守初心、担当使命"],
+        correct: 0,
+        level: 3,
+        explanation: "“三个务必”是党的二十大对全党提出的新要求，体现了党在新的赶考路上的清醒和坚定。"
+    },
+    {
+        text: "新时代党的建设的根本方针是：",
+        options: ["坚持和加强党的全面领导", "坚持党要管党、全面从严治党", "坚持把政治建设摆在首位", "坚持思想建党和制度治党同向发力"],
+        correct: 1,
+        level: 3,
+        explanation: "“坚持党要管党、全面从严治党”是新时代党的建设的根本方针，体现了党自我革命的勇气和决心。"
+    },
+    {
+        text: "“四个伟大”中，起决定性作用的是：",
+        options: ["伟大斗争", "伟大工程", "伟大事业", "伟大梦想"],
+        correct: 1,
+        level: 3,
+        explanation: "伟大工程是“四个伟大”中起决定性作用的，党的建设新的伟大工程是确保党不变质、不变色、不变味的关键。"
+    },
+    {
+        text: "新时代全面深化改革的重点是：",
+        options: ["经济体制改革", "政治体制改革", "文化体制改革", "生态文明体制改革"],
+        correct: 0,
+        level: 3,
+        explanation: "经济体制改革是全面深化改革的重点，核心问题是处理好政府和市场的关系。"
+    },
+    {
+        text: "“浦江经验”的核心要义是：",
+        options: ["领导带头下访接访，解决群众急难愁盼问题", "基层群众自治", "网络问政", "信访法治化"],
+        correct: 0,
+        level: 3,
+        explanation: "“浦江经验”是习近平总书记在浙江工作期间亲自倡导并带头下访形成的宝贵经验，核心是变群众上访为领导下访。"
+    },
+    {
+        text: "新时代我国发展壮大的必由之路是：",
+        options: ["贯彻新发展理念", "坚持党的领导", "全面深化改革", "坚持中国特色社会主义"],
+        correct: 0,
+        level: 3,
+        explanation: "贯彻新发展理念是新时代我国发展壮大的必由之路，只有完整、准确、全面贯彻新发展理念，才能实现高质量发展。"
+    },
+    {
+        text: "“六个必须坚持”中，居于首位的是：",
+        options: ["必须坚持人民至上", "必须坚持自信自立", "必须坚持守正创新", "必须坚持问题导向"],
+        correct: 0,
+        level: 3,
+        explanation: "“六个必须坚持”是习近平新时代中国特色社会主义思想的世界观和方法论，人民至上是根本价值立场。"
+    },
+    {
+        text: "新时代“千万工程”的经验是：",
+        options: ["坚持生态优先、绿色发展，坚持因地制宜、科学规划", "大规模城市化", "全面工业化", "资源粗放开发"],
+        correct: 0,
+        level: 3,
+        explanation: "“千万工程”是习近平同志在浙江工作期间亲自推动的农村人居环境整治工程，其经验对全面推进乡村振兴具有重要指导意义。"
+    },
+    {
+        text: "关于“自我革命”与“社会革命”的关系，正确的是：",
+        options: ["以党的自我革命引领伟大社会革命", "社会革命比自我革命更重要", "两者没有关联", "自我革命要服务于社会革命"],
+        correct: 0,
+        level: 3,
+        explanation: "党必须勇于自我革命，以党的自我革命引领伟大社会革命，这是党百年奋斗积累的宝贵经验。"
+    },
+    {
+        text: "新时代我国经济发展由高速增长阶段转向什么阶段？",
+        options: ["高质量发展阶段", "中高速增长阶段", "平稳发展阶段", "转型升级阶段"],
+        correct: 0,
+        level: 3,
+        explanation: "党的十九大报告指出，我国经济已由高速增长阶段转向高质量发展阶段，这是新时代我国经济发展的基本特征。"
+    },
+    {
+        text: "“新质生产力”的核心标志是：",
+        options: ["全要素生产率大幅提升", "劳动力数量增加", "资本投入扩大", "自然资源开发"],
+        correct: 0,
+        level: 3,
+        explanation: "新质生产力以科技创新为核心，以全要素生产率大幅提升为标志，是推动高质量发展的内在要求和重要着力点。"
+    },
+    {
+        text: "新时代文化自信的根本是：",
+        options: ["对马克思主义的信仰", "对中华优秀传统文化的传承", "对社会主义核心价值观的认同", "对西方文明的借鉴"],
+        correct: 0,
+        level: 3,
+        explanation: "文化自信的根本是对马克思主义的信仰，马克思主义是立党立国、兴党强国的根本指导思想。"
+    },
+    {
+        text: "“一国两制”方针的最高原则是：",
+        options: ["维护国家主权、安全、发展利益", "保持香港澳门长期繁荣稳定", "尊重两制差异", "实行高度自治"],
+        correct: 0,
+        level: 3,
+        explanation: "维护国家主权、安全、发展利益是“一国两制”方针的最高原则，任何时候都不能动摇。"
+    },
+    {
+        text: "新时代促进共同富裕要正确处理的关系是：",
+        options: ["效率和公平的关系", "先富和后富的关系", "城市和农村的关系", "东部和西部的关系"],
+        correct: 0,
+        level: 3,
+        explanation: "促进共同富裕要正确处理效率和公平的关系，构建初次分配、再分配、三次分调协调配套的基础性制度安排。"
+    },
+    {
+        text: "“三大全球倡议”是指：",
+        options: ["全球发展倡议、全球安全倡议、全球文明倡议", "全球抗疫倡议、全球减贫倡议、全球气候倡议", "全球贸易倡议、全球投资倡议、全球科技倡议", "全球海洋倡议、全球太空倡议、全球网络倡议"],
+        correct: 0,
+        level: 3,
+        explanation: "全球发展倡议、全球安全倡议、全球文明倡议是中国为应对全球性挑战提出的重要公共产品。"
+    },
+    {
+        text: "新时代“枫桥经验”与“浦江经验”共同体现了：",
+        options: ["以人民为中心的发展思想", "法治思维", "基层治理现代化", "源头治理"],
+        correct: 0,
+        level: 3,
+        explanation: "两者都贯穿了以人民为中心的发展思想，是密切联系群众、化解社会矛盾的有效机制。"
+    },
+    {
+        text: "新时代党的宗教工作理论和方针政策，要引导宗教与什么相适应？",
+        options: ["社会主义社会", "中国特色社会主义", "中国国情", "现代化"],
+        correct: 0,
+        level: 3,
+        explanation: "要引导宗教与社会主义社会相适应，坚持我国宗教中国化方向。"
+    },
+    {
+        text: "“坚持胸怀天下”是习近平新时代中国特色社会主义思想的世界观和方法论之一，其核心要义是：",
+        options: ["以世界眼光关注人类前途命运，为人类谋进步、为世界谋大同", "输出中国模式", "建立中国主导的国际秩序", "取代西方文明"],
+        correct: 0,
+        level: 3,
+        explanation: "坚持胸怀天下，体现了中国共产党为人类谋进步、为世界谋大同的使命担当，是推动构建人类命运共同体的内在要求。"
+    }
+    ];
 
     // ========= 增加更多中国成就（展现盛世华章）=========
     // 原始成就数据（用于缩放）
@@ -583,8 +1121,8 @@
     let ACHIEVEMENTS = [...ORIGINAL_ACHIEVEMENTS];
 
     // 游戏全局变量 (与原一致)
-    const TOTAL_STATIONS = 9;
-    const STATIONS_PER_LEVEL = 3;
+    let TOTAL_STATIONS = 9;
+    let STATIONS_PER_LEVEL = 3;
     let currentCorrectCount = 0;
     let rewardPoints = 0;
     let gameActive = false;
@@ -594,6 +1132,7 @@
     let remainingQuestionsByLevel = { 1: [], 2: [], 3: [] };
     let currentStationQuestion = null;
     let pendingLevelUp = false;
+    let gameMode = 'fixed'; // 'fixed' 固定题目顺序, 'random' 随机题库模式
 
     let canvas, ctx;
     let canvasWidth = 1000, canvasHeight = 550;
@@ -693,38 +1232,181 @@
     function showRankingModal(finalScore) {
         const container=document.getElementById("rankingListContainer");
         document.getElementById("currentScoreSpan").innerText=finalScore;
-        container.innerHTML=`<div style="margin-bottom:20px;"><p style="margin-bottom:8px;">请输入您的昵称：</p><input type="text" id="nicknameInput" placeholder="输入昵称（最多10个字符）" style="width:100%; padding:10px; border-radius:40px; border:2px solid #e2d5bb; font-size:1rem; text-align:center;"></div><button id="saveScoreBtn" class="pass-btn continue-btn" style="background:#2c7a4d; margin-bottom:20px;">保存分数</button><div id="rankingListContent">载入中...</div>`;
+        
+        // 只在随机题库模式下显示保存分数的界面
+        if (gameMode === 'random') {
+            container.innerHTML=`<div style="margin-bottom:20px;"><p style="margin-bottom:8px;">请输入您的昵称：</p><input type="text" id="nicknameInput" placeholder="输入昵称（最多10个字符）" style="width:100%; padding:10px; border-radius:40px; border:2px solid #e2d5bb; font-size:1rem; text-align:center;"></div><button id="saveScoreBtn" class="pass-btn continue-btn" style="background:#2c7a4d; margin-bottom:20px;">保存分数</button><div id="rankingListContent">载入中...</div>`;
+        } else {
+            container.innerHTML=`<div style="margin-bottom:20px;"><p style="text-align:center; color:#666;">✨ 固定模式下的分数不会记录到排行榜 ✨</p></div><div id="rankingListContent">载入中...</div>`;
+        }
+        
         document.getElementById("rankingModal").classList.add("active");
-        document.getElementById("saveScoreBtn").addEventListener("click",()=>{
-            const nicknameInput=document.getElementById("nicknameInput");
-            let nickname=nicknameInput.value.trim();
-            if(nickname.length>10) nickname=nickname.substring(0,10);
-            const rankings=saveScoreToRanking(finalScore,nickname);
+        
+        if (gameMode === 'random') {
+            document.getElementById("saveScoreBtn").addEventListener("click",()=>{
+                const nicknameInput=document.getElementById("nicknameInput");
+                let nickname=nicknameInput.value.trim();
+                if(nickname.length>10) nickname=nickname.substring(0,10);
+                const rankings=saveScoreToRanking(finalScore,nickname);
+                const rankingListContent=document.getElementById("rankingListContent");
+                rankingListContent.innerHTML=rankings.length?rankings.map((item,idx)=>`<div class="ranking-item ${item.score===finalScore&&idx===rankings.findIndex(r=>r.score===finalScore)&&item.nickname===nickname?"highlight":""}"><span>${idx+1}. ${item.nickname} - ${item.score} 理论之光</span><span style="font-size:0.8rem;">${item.date}</span></div>`).join(""):"<div>暂无记录</div>";
+                document.getElementById("saveScoreBtn").style.display="none";
+                document.getElementById("nicknameInput").parentElement.style.display="none";
+                // 添加重置按钮
+                addResetButton();
+            });
+        } else {
+            // 固定模式下直接显示排行榜
+            const rankings=JSON.parse(localStorage.getItem("cultureRankings")||"[]");
             const rankingListContent=document.getElementById("rankingListContent");
-            rankingListContent.innerHTML=rankings.length?rankings.map((item,idx)=>`<div class="ranking-item ${item.score===finalScore&&idx===rankings.findIndex(r=>r.score===finalScore)&&item.nickname===nickname?"highlight":""}"><span>${idx+1}. ${item.nickname} - ${item.score} 理论之光</span><span style="font-size:0.8rem;">${item.date}</span></div>`).join(""):"<div>暂无记录</div>";
-            document.getElementById("saveScoreBtn").style.display="none";
-            document.getElementById("nicknameInput").parentElement.style.display="none";
-        });
+            rankingListContent.innerHTML=rankings.length?rankings.map((item,idx)=>`<div class="ranking-item"><span>${idx+1}. ${item.nickname} - ${item.score} 理论之光</span><span style="font-size:0.8rem;">${item.date}</span></div>`).join(""):"<div>暂无记录</div>";
+            // 添加重置按钮
+            addResetButton();
+        }
     }
-    function showHistoryRanking(){ let rankings=JSON.parse(localStorage.getItem("cultureRankings")||"[]"); const container=document.getElementById("historyRankList"); if(rankings.length===0) { container.innerHTML="<div>✨ 暂无思想航迹，扬帆起航吧 ✨</div>"; } else { container.innerHTML=rankings.map((item,idx)=>`<div class="ranking-item"><span>${idx+1}. ${item.nickname || "匿名"} - ${item.score} 灵蕴</span><span>${item.date}</span></div>`).join(""); } document.getElementById("historyRankModal").classList.add("active"); }
-    function exitGame(){ if(animationId) cancelAnimationFrame(animationId); gameActive=false; isAwaitingAnswer=false; isMoving=false; pendingLevelUp=false; currentCorrectCount=0; rewardPoints=0; currentDisplayRatio=0; targetRatio=0; initRemainingQuestions(); document.getElementById("questionModal").classList.remove("active"); document.getElementById("levelPassModal").classList.remove("active"); document.getElementById("rankingModal").classList.remove("active"); redrawAll(); updateUI(); applyLevelTheme(); }
-    function resetGame(){ exitGame(); }
-    function initRemainingQuestions() {
-        remainingQuestionsByLevel={1:[],2:[],3:[]};
-        QUESTION_SET.forEach(q=>{
-            remainingQuestionsByLevel[q.level].push({...q});
+    
+    // 添加重置排行榜按钮
+    function addResetButton() {
+        const container=document.getElementById("rankingListContainer");
+        const resetButton=document.createElement("button");
+        resetButton.id="resetRankingBtn";
+        resetButton.className="pass-btn quit-pass-btn";
+        resetButton.style="background:#c0392b; margin-top:20px;";
+        resetButton.innerText="🔄 重置排行榜";
+        resetButton.addEventListener("click",()=>{
+            if(confirm("确定要清除所有排行榜记录吗？此操作不可恢复。")){
+                localStorage.removeItem("cultureRankings");
+                const rankingListContent=document.getElementById("rankingListContent");
+                rankingListContent.innerHTML="<div>✨ 排行榜已重置 ✨</div>";
+                resetButton.style.display="none";
+            }
         });
+        container.appendChild(resetButton);
+    }
+    function showHistoryRanking(){ let rankings=JSON.parse(localStorage.getItem("cultureRankings")||"[]"); const container=document.getElementById("historyRankList"); if(rankings.length===0) { container.innerHTML="<div>✨ 暂无思想航迹，扬帆起航吧 ✨</div>"; } else { container.innerHTML=rankings.map((item,idx)=>`<div class="ranking-item"><span>${idx+1}. ${item.nickname || "匿名"} - ${item.score} 灵蕴</span><span>${item.date}</span></div>`).join(""); } 
+        // 添加重置按钮
+        const modal=document.getElementById("historyRankModal");
+        const existingResetBtn=document.getElementById("historyResetRankingBtn");
+        if(existingResetBtn) existingResetBtn.remove();
+        
+        const resetButton=document.createElement("button");
+        resetButton.id="historyResetRankingBtn";
+        resetButton.className="pass-btn quit-pass-btn";
+        resetButton.style="background:#c0392b; margin-top:20px;";
+        resetButton.innerText="🔄 重置排行榜";
+        resetButton.addEventListener("click",()=>{
+            if(confirm("确定要清除所有排行榜记录吗？此操作不可恢复。")){
+                localStorage.removeItem("cultureRankings");
+                container.innerHTML="<div>✨ 排行榜已重置 ✨</div>";
+                resetButton.style.display="none";
+            }
+        });
+        modal.querySelector(".history-modal-card").appendChild(resetButton);
+        
+        document.getElementById("historyRankModal").classList.add("active"); 
+    }
+    function exitGame(){ if(animationId) cancelAnimationFrame(animationId); gameActive=false; isAwaitingAnswer=false; isMoving=false; pendingLevelUp=false; currentCorrectCount=0; rewardPoints=0; currentDisplayRatio=0; targetRatio=0; initRemainingQuestions(); document.getElementById("questionModal").classList.remove("active"); document.getElementById("levelPassModal").classList.remove("active"); document.getElementById("rankingModal").classList.remove("active"); redrawAll(); updateUI(); applyLevelTheme(); }
+    function resetGame(){ exitGame(); completedLevels.clear(); }
+    function initRemainingQuestions() {
+        // 根据游戏模式设置不同的答题数和每关题目数
+        if (gameMode === 'fixed') {
+            TOTAL_STATIONS = 9;
+            STATIONS_PER_LEVEL = 3;
+        } else {
+            TOTAL_STATIONS = 18;
+            STATIONS_PER_LEVEL = 6;
+        }
+        
+        remainingQuestionsByLevel={1:[],2:[],3:[]};
+        const currentQuestionSet = gameMode === 'fixed' ? QUESTION_SET : QUESTION_SET_RANDOM;
+        
+        // 随机模式下需要复制题目以达到18道
+        if (gameMode === 'random') {
+            // 复制题目以达到每关6道
+            for (let level = 1; level <= 3; level++) {
+                const levelQuestions = currentQuestionSet.filter(q => q.level === level);
+                // 复制题目直到达到每关6道
+                while (levelQuestions.length < STATIONS_PER_LEVEL) {
+                    // 随机选择一道题目复制
+                    const randomIndex = Math.floor(Math.random() * currentQuestionSet.filter(q => q.level === level).length);
+                    levelQuestions.push({...currentQuestionSet.filter(q => q.level === level)[randomIndex]});
+                }
+                // 打乱顺序
+                levelQuestions.sort(() => Math.random() - 0.5);
+                remainingQuestionsByLevel[level] = levelQuestions;
+            }
+        } else {
+            // 固定模式下直接使用原题目
+            currentQuestionSet.forEach(q=>{
+                remainingQuestionsByLevel[q.level].push({...q});
+            });
+        }
     }
     function getQuestionByLevel(level) {
         let pool=remainingQuestionsByLevel[level];
         if(!pool||pool.length===0){
-            const original=QUESTION_SET.filter(q=>q.level===level);
-            pool=original.map(q=>({...q}));
+            const currentQuestionSet = gameMode === 'fixed' ? QUESTION_SET : QUESTION_SET_RANDOM;
+            
+            if (gameMode === 'random') {
+                // 随机模式下确保每关有6道题目
+                const levelQuestions = currentQuestionSet.filter(q => q.level === level);
+                // 复制题目直到达到每关6道
+                while (levelQuestions.length < STATIONS_PER_LEVEL) {
+                    // 随机选择一道题目复制
+                    const randomIndex = Math.floor(Math.random() * currentQuestionSet.filter(q => q.level === level).length);
+                    levelQuestions.push({...currentQuestionSet.filter(q => q.level === level)[randomIndex]});
+                }
+                // 打乱顺序
+                levelQuestions.sort(() => Math.random() - 0.5);
+                pool = levelQuestions;
+            } else {
+                // 固定模式下直接使用原题目
+                const original=currentQuestionSet.filter(q=>q.level===level);
+                pool=original.map(q=>({...q}));
+            }
+            
             remainingQuestionsByLevel[level]=pool;
         }
         return pool.shift();
     }
-    function checkLevelCompletion(){ let stationInLevel=currentCorrectCount%STATIONS_PER_LEVEL; if(stationInLevel===0&&currentCorrectCount>0&&currentCorrectCount<TOTAL_STATIONS){ pendingLevelUp=true; gameActive=false; let levelNum = currentCorrectCount/STATIONS_PER_LEVEL; let message = `第 ${levelNum} 关 · 理论精粹<br>累计理论之光 ${rewardPoints} 点！<br><br>你已深刻领悟此关思想精髓，理论自信愈发坚定，新时代征程再进一步。`; if(levelNum === 1){ message += `<br><br>河流进入中游，江面骤然开阔。两岸出现了前所未有的新景象——现代化的城市、绿水青山的生态、互联互通的桥梁。但这片宽阔的水域，也需要更精准的导航。`; } else if(levelNum === 2){ message += `<br><br>河流即将奔流入海，但这一段也是航行最艰险的河段——礁石密布、暗流涌动、风高浪急。同时，还有一些"分叉水道"试图将主流引向错误的方向。只有保持定力、一以贯之，才能最终汇入大海。`; } document.getElementById("levelPassMessage").innerHTML=message; document.getElementById("levelPassModal").classList.add("active"); } }
+    // 记录已经完成的关卡，避免重复显示过关确认模态框
+    let completedLevels = new Set();
+    
+    function checkLevelCompletion(){ 
+        // 随机模式下不显示过关确认模态框
+        if (gameMode === 'random') {
+            return;
+        }
+        
+        // 如果已经处于关卡升级状态，不重复显示
+        if (pendingLevelUp) {
+            return;
+        }
+        
+        let stationInLevel=currentCorrectCount%STATIONS_PER_LEVEL; 
+        if(stationInLevel===0&&currentCorrectCount>0&&currentCorrectCount<TOTAL_STATIONS){
+            let levelNum = currentCorrectCount/STATIONS_PER_LEVEL;
+            
+            // 如果该关卡已经完成过，不重复显示
+            if (completedLevels.has(levelNum)) {
+                return;
+            }
+            
+            // 标记该关卡为已完成
+            completedLevels.add(levelNum);
+            
+            pendingLevelUp=true; 
+            gameActive=false; 
+            let message = `第 ${levelNum} 关 · 理论精粹<br>累计理论之光 ${rewardPoints} 点！<br><br>你已深刻领悟此关思想精髓，理论自信愈发坚定，新时代征程再进一步。`; 
+            if(levelNum === 1){ 
+                message += `<br><br>河流进入中游，江面骤然开阔。两岸出现了前所未有的新景象——现代化的城市、绿水青山的生态、互联互通的桥梁。但这片宽阔的水域，也需要更精准的导航。`; 
+            } else if(levelNum === 2){ 
+                message += `<br><br>河流即将奔流入海，但这一段也是航行最艰险的河段——礁石密布、暗流涌动、风高浪急。同时，还有一些"分叉水道"试图将主流引向错误的方向。只有保持定力、一以贯之，才能最终汇入大海。`; 
+            } 
+            document.getElementById("levelPassMessage").innerHTML=message; 
+            document.getElementById("levelPassModal").classList.add("active"); 
+        } 
+    }
     function continueToNextLevel(){ document.getElementById("levelPassModal").classList.remove("active"); pendingLevelUp=false; gameActive=true; if(currentCorrectCount<TOTAL_STATIONS) moveToNextStation(); }
     function startMoveToTarget() {
         if(isMoving)return;
@@ -743,7 +1425,10 @@
                 redrawAll();
                 isMoving=false;
                 animationId=null;
-                if(gameActive&&currentCorrectCount<TOTAL_STATIONS&&!isAwaitingAnswer&&!pendingLevelUp) {
+                // 检查是否完成关卡
+                checkLevelCompletion();
+                // 如果是随机模式或者不是关卡完成状态，继续下一题
+                if(gameActive&&currentCorrectCount<TOTAL_STATIONS&&!isAwaitingAnswer&&(!pendingLevelUp || gameMode === 'random')) {
                     showQuestionForCurrentStation();
                 } else if(currentCorrectCount===TOTAL_STATIONS) {
                     finishGame();
@@ -753,9 +1438,10 @@
         if(animationId) cancelAnimationFrame(animationId);
         animationId=requestAnimationFrame(step);
     }
-    function moveToNextStation(){ if(currentCorrectCount>=TOTAL_STATIONS){ finishGame(); return; } targetRatio=currentCorrectCount/TOTAL_STATIONS; if(Math.abs(currentDisplayRatio-targetRatio)<0.001){ if(gameActive&&!isAwaitingAnswer&&!pendingLevelUp) showQuestionForCurrentStation(); } else startMoveToTarget(); }
+    function moveToNextStation(){ if(currentCorrectCount>=TOTAL_STATIONS){ finishGame(); return; } targetRatio=currentCorrectCount/TOTAL_STATIONS; if(Math.abs(currentDisplayRatio-targetRatio)<0.001){ if(gameActive&&!isAwaitingAnswer&&(!pendingLevelUp || gameMode === 'random')) showQuestionForCurrentStation(); } else startMoveToTarget(); }
     function showQuestionForCurrentStation() {
-        if(!gameActive||pendingLevelUp||currentCorrectCount>=TOTAL_STATIONS||isAwaitingAnswer)return;
+        // 在随机模式下，即使pendingLevelUp为true，也能显示下一题
+        if(!gameActive||(pendingLevelUp && gameMode !== 'random')||currentCorrectCount>=TOTAL_STATIONS||isAwaitingAnswer)return;
         const level=getCurrentLevel();
         currentStationQuestion=getQuestionByLevel(level);
         const modal=document.getElementById("questionModal");
@@ -774,27 +1460,37 @@
         });
         document.getElementById("modalExplanation").innerHTML="📖 择善而从，真理领航";
         document.getElementById("modalExplanation").classList.remove("error");
-        // 显示时代背景
-        const contextContent = document.getElementById("contextContent");
-        const currentQuestionIndex = currentCorrectCount;
-        let imageHTML = "";
         
-        // 根据题目索引显示对应的图片
-        if (currentQuestionIndex === 0) {
-            imageHTML = '<img src="picture1.png" class="context-image" alt="时代背景图片">';
-        } else if (currentQuestionIndex === 1) {
-            imageHTML = '<img src="picture2.png" class="context-image" alt="时代背景图片">';
-        } else if (currentQuestionIndex === 2) {
-            imageHTML = '<img src="picture3.png" class="context-image" alt="时代背景图片">';
-        } else if (currentQuestionIndex === 3) {
-            imageHTML = '<img src="picture4.png" class="context-image" alt="时代背景图片">';
-        } else if (currentQuestionIndex === 4) {
-            imageHTML = '<img src="picture5.png" class="context-image" alt="时代背景图片">';
-        } else if (currentQuestionIndex === 8) {
-            imageHTML = '<img src="picture9.png" class="context-image" alt="时代背景图片">';
+        // 根据游戏模式决定是否显示时代背景界面
+        const contextModal = document.querySelector(".context-modal");
+        if (gameMode === 'fixed') {
+            // 显示时代背景
+            const contextContent = document.getElementById("contextContent");
+            const currentQuestionIndex = currentCorrectCount;
+            let imageHTML = "";
+            
+            // 根据题目索引显示对应的图片
+            if (currentQuestionIndex === 0) {
+                imageHTML = '<img src="picture1.png" class="context-image" alt="时代背景图片">';
+            } else if (currentQuestionIndex === 1) {
+                imageHTML = '<img src="picture2.png" class="context-image" alt="时代背景图片">';
+            } else if (currentQuestionIndex === 2) {
+                imageHTML = '<img src="picture3.png" class="context-image" alt="时代背景图片">';
+            } else if (currentQuestionIndex === 3) {
+                imageHTML = '<img src="picture4.png" class="context-image" alt="时代背景图片">';
+            } else if (currentQuestionIndex === 4) {
+                imageHTML = '<img src="picture5.png" class="context-image" alt="时代背景图片">';
+            } else if (currentQuestionIndex === 8) {
+                imageHTML = '<img src="picture9.png" class="context-image" alt="时代背景图片">';
+            }
+            
+            contextContent.innerHTML = `${currentStationQuestion.historical_context||"暂无时代背景信息"}${imageHTML}`;
+            contextModal.style.display = "block";
+        } else {
+            // 随机模式下隐藏时代背景界面
+            contextModal.style.display = "none";
         }
         
-        contextContent.innerHTML = `${currentStationQuestion.historical_context||"暂无时代背景信息"}${imageHTML}`;
         // 隐藏下一题按钮
         document.getElementById("nextQuestionBtn").style.display="none";
         modal.classList.add("active");
@@ -924,8 +1620,59 @@
         
         setupCanvasClick();
         initRemainingQuestions();
+        
+        // 答题模式选择按钮点击事件
+        document.getElementById("modeSelectBtn").addEventListener("click",()=>{
+            // 检查游戏是否未完成（有进度但未完成所有题目）
+            if (currentCorrectCount > 0 && currentCorrectCount < TOTAL_STATIONS) {
+                document.getElementById("modeWarningModal").classList.add("active");
+            } else {
+                document.getElementById("modeSelectModal").classList.add("active");
+            }
+        });
+        
+        // 关闭警告模态框
+        document.getElementById("closeWarningBtn").addEventListener("click",()=>{
+            document.getElementById("modeWarningModal").classList.remove("active");
+        });
+        
+        // 固定题目顺序模式选择
+        document.getElementById("fixedModeBtn").addEventListener("click",()=>{
+            gameMode = 'fixed';
+            document.getElementById("modeSelectModal").classList.remove("active");
+            // 重置游戏状态
+            resetGame();
+            // 重新初始化题库并更新界面
+            initRemainingQuestions();
+            updateUI();
+            redrawAll();
+        });
+        
+        // 随机题库模式选择
+        document.getElementById("randomModeBtn").addEventListener("click",()=>{
+            gameMode = 'random';
+            document.getElementById("modeSelectModal").classList.remove("active");
+            // 重置游戏状态
+            resetGame();
+            // 重新初始化题库并更新界面
+            initRemainingQuestions();
+            updateUI();
+            redrawAll();
+        });
+        
+        // 取消模式选择
+        document.getElementById("cancelModeSelectBtn").addEventListener("click",()=>{
+            document.getElementById("modeSelectModal").classList.remove("active");
+        });
+        
         document.getElementById("startGameBtn").addEventListener("click",()=>{
-            document.getElementById("startJourneyModal").classList.add("active");
+            // 在固定顺序模式下，如果已有进度，直接继续游戏
+            // 在随机模式下，直接开始游戏，不显示序章
+            if (gameMode === 'fixed' && currentCorrectCount > 0 || gameMode === 'random') {
+                startGame();
+            } else {
+                document.getElementById("startJourneyModal").classList.add("active");
+            }
         });
         document.getElementById("startJourneyBtn").addEventListener("click",()=>{
             document.getElementById("startJourneyModal").classList.remove("active");
