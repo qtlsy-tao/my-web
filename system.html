@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国快递业的制度密码 - 中国快递业发展与历史</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">中国快递业发展</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="history.html">历史演变</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="comparison.html">古今对比</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="system.html">制度密码</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">关于我们</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 页面标题 -->
+    <header class="hero" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('images/ancient/zhidumima.jpg'); background-size: cover; background-position: center;">
+        <div class="container h-100 d-flex flex-column justify-content-center align-items-center text-white text-center">
+            <h1 class="display-4 mb-4 text-animation">中国快递业的制度密码</h1>
+            <p class="lead mb-4">制度优势如何赋能快递业高质量发展</p>
+        </div>
+    </header>
+
+    <!-- 分层图解：动态展示 -->
+<section class="py-10 bg-primary bg-opacity-25">
+    <div class="container">
+        <h2 class="mb-6 text-center">分层图解：制度优势传导路径</h2>
+        
+        <div class="card">
+            <div class="card-body">
+                <div id="system-animation-container">
+                    <!-- 动画容器 -->
+                    <div class="text-center mb-6">
+                        <h3>制度优势→政策落地→行业成果</h3>
+                    </div>
+                    
+                    <!-- 三条路径 -->
+                    <div class="row">
+                        <!-- 路径1：集中力量办大事 -->
+                        <div class="col-md-4">
+                            <div class="path-container" id="path1">
+                                <h4 class="text-center mb-4">集中力量办大事</h4>
+                                <div class="path-steps">
+                                    <div class="step step1">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h5>制度优势</h5>
+                                                <p>集中力量办大事</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="step step2">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h5>核心政策动作</h5>
+                                                <p>快递进村纳入乡村振兴战略</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="step step3">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h5>行业成果</h5>
+                                                <p>行政村快递通达率 100%</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="step step4">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h5>可视化元素</h5>
+                                                <div class="text-center">
+                                                    <img src="images/ancient/9b73801ebd8c1bd5873d35fc1ee3ead6.png" alt="中国地图覆盖" class="img-fluid rounded" style="max-height: 150px;">
+                                                    <p class="mt-2">中国地图覆盖进度色块</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 路径2：以人民为中心 -->
+                        <div class="col-md-4">
+                            <div class="path-container" id="path2">
+                                <h4 class="text-center mb-4">以人民为中心</h4>
+                                <div class="path-steps">
+                                    <div class="step step1">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h5>制度优势</h5>
+                                                <p>以人民为中心</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="step step2">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h5>核心政策动作</h5>
+                                                <p>偏远地区快递普惠定价政策</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="step step3">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h5>行业成果</h5>
+                                                <p>西部偏远地区快递单价与东部持平</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="step step4">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h5>可视化元素</h5>
+                                                <div class="text-center">
+                                                    <img src="images/ancient/fb8ab3095ebd61c8775535f08ec6953f.jpg" alt="价格对比" class="img-fluid rounded" style="max-height: 150px;">
+                                                    <p class="mt-2">价格对比折线图</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 路径3：公有制兜底 + 民企创新 -->
+                        <div class="col-md-4">
+                            <div class="path-container" id="path3">
+                                <h4 class="text-center mb-4">公有制兜底 + 民企创新</h4>
+                                <div class="path-steps">
+                                    <div class="step step1">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h5>制度优势</h5>
+                                                <p>公有制兜底 + 民企创新</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="step step2">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h5>核心政策动作</h5>
+                                                <p>中国邮政保障边疆邮政服务</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="step step3">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h5>行业成果</h5>
+                                                <p>珠峰 / 南沙群岛设快递网点，顺丰无人机配送</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="step step4">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h5>可视化元素</h5>
+                                                <div class="text-center">
+                                                    <img src="images/ancient/1e04948b-cb07-4e35-8329-8d44cd881fe8.png" alt="网点分布" class="img-fluid rounded" style="max-height: 150px;">
+                                                    <p class="mt-2">网点分布地图</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- 对比型信息看板 -->
+    <section class="py-10">
+        <div class="container">
+            <h2 class="mb-6 text-center">对比型信息看板：制度差异下的发展差距</h2>
+            
+            <div class="row mb-8">
+                <div class="col-md-12">
+                    <h3 class="text-center mb-4">中外对比</h3>
+                    <div class="overflow-x-auto">
+                        <table class="table table-bordered table-hover">
+                            <thead class="bg-primary text-white">
+                                <tr>
+                                    <th>对比维度</th>
+                                    <th>中国快递业</th>
+                                    <th>欧美快递业</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>覆盖范围</td>
+                                    <td>全国行政村全覆盖（100%）</td>
+                                    <td>乡村快递覆盖率不足 60%</td>
+                                </tr>
+                                <tr>
+                                    <td>服务成本</td>
+                                    <td>偏远地区与东部地区价格持平</td>
+                                    <td>偏远地区价格是城市的 2-3 倍</td>
+                                </tr>
+                                <tr>
+                                    <td>应急保供</td>
+                                    <td>疫情期间 72 小时保供物资配送</td>
+                                    <td>疫情期间快递停摆，物资配送延迟</td>
+                                </tr>
+                                <tr>
+                                    <td>绿色转型</td>
+                                    <td>国家层面推动绿色包装，回收率达 80%</td>
+                                    <td>缺乏统一标准，回收率不足 40%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- 制度赋能赛跑游戏 -->
+    <section class="py-10 bg-light">
+        <div class="container">
+            <h2 class="mb-6 text-center">制度赋能赛跑游戏</h2>
+            
+            <div class="card">
+                <div class="card-body">
+                    <div id="race-game-container">
+                        <!-- 游戏说明 -->
+                        <div class="text-center mb-6">
+                            <h3>中国 vs 国外：制度赋能赛跑</h3>
+                            <p class="text-muted">国外起点更近，初始速度更快。选择政策为中国加速，最终超过国外！</p>
+                        </div>
+                        
+                        <!-- 赛道 -->
+                        <div class="race-track" style="position: relative; height: 400px; border: 2px solid #dee2e6; border-radius: 50px; margin-bottom: 40px; overflow: hidden;">
+                            <!-- 曲线赛道 -->
+                            <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0; z-index: 1;">
+                                <path d="M 150,200 C 350,120 650,280 950,200" stroke="#000" stroke-width="2" fill="none"/>
+                            </svg>
+                            <!-- 起点线 -->
+                            <div style="position: absolute; left: 150px; top: 0; bottom: 0; width: 2px; background-color: #000; z-index: 2;"></div>
+                            <!-- 终点线 -->
+                            <div style="position: absolute; left: 950px; top: 0; bottom: 0; width: 2px; background-color: #000; z-index: 2;"></div>
+                            <!-- 起点标记 -->
+                            <div style="position: absolute; left: 130px; top: 10px; font-weight: bold; z-index: 2;">起点</div>
+                            <!-- 终点标记 -->
+                            <div style="position: absolute; left: 930px; top: 10px; font-weight: bold; z-index: 2;">终点</div>
+                            
+                            <!-- 国外选手 -->
+                            <div id="foreign-runner" style="position: absolute; left: 180px; top: 190px; width: 60px; height: 80px; background-color: #ff6b6b; color: white; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-weight: bold; z-index: 3;">国外</div>
+                            <!-- 中国选手 -->
+                            <div id="china-runner" style="position: absolute; left: 150px; top: 200px; width: 60px; height: 80px; background-color: #4ecdc4; color: white; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-weight: bold; z-index: 3;">中国</div>
+                        </div>
+                        
+                        <!-- 政策选择区 -->
+                        <div class="policy-selection" style="margin-bottom: 30px;">
+                            <h4 class="text-center mb-3">选择政策为中国加速</h4>
+                            <div id="policy-container" class="d-flex justify-content-center flex-wrap gap-3">
+                                <!-- 政策将动态生成 -->
+                            </div>
+                        </div>
+                        
+                        <!-- 游戏控制 -->
+                        <div class="text-center">
+                            <button id="start-race" class="btn btn-primary btn-lg">开始游戏</button>
+                            <button id="reset-race" class="btn btn-secondary btn-lg ml-3" disabled>重置游戏</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+
+        
+        // 动态展示功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const paths = ['path1', 'path2', 'path3'];
+            
+            // 直接开始动画
+            paths.forEach(pathId => {
+                const path = document.getElementById(pathId);
+                const steps = path.querySelectorAll('.step');
+                
+                steps.forEach((step, index) => {
+                    setTimeout(() => {
+                        step.style.opacity = '1';
+                        step.style.transform = 'translateY(0)';
+                    }, index * 1000); // 每个步骤间隔1秒
+                });
+            });
+        });
+        
+        // 制度赋能赛跑游戏
+        document.addEventListener('DOMContentLoaded', function() {
+            // 游戏元素
+            const startRaceBtn = document.getElementById('start-race');
+            const resetRaceBtn = document.getElementById('reset-race');
+            const chinaRunner = document.getElementById('china-runner');
+            const foreignRunner = document.getElementById('foreign-runner');
+            const policyContainer = document.getElementById('policy-container');
+            
+            // 游戏状态
+            let gameInterval;
+            let isRunning = false;
+            let chinaProgress = 0; // 中国在赛道上的进度（0-1）
+            let foreignProgress = 0.1; // 国外在赛道上的进度（0-1），初始领先
+            let chinaSpeed = 0.002; // 中国初始速度
+            let foreignSpeed = 0.003; // 国外初始速度（更快）
+            let selectedPolicies = []; // 已选择的政策
+            let availablePolicies = {}; // 可用政策
+            
+            // 政策数据
+            const policies = {
+                "集中力量办大事": [
+                    { name: "国务院关于促进快递业发展的若干意见（2015）", effect: 0.75, description: "确立快递为国家先导性产业，行业第一次国家级顶层设计。" },
+                    { name: "快递暂行条例（2018，2025 修订）", effect: 0.675, description: "快递业首部行政法规，奠定全国统一监管与服务体系。" },
+                    { name: "关于加快农村寄递物流体系建设的意见（2021）", effect: 0.825, description: "强力推进 '快递进村'，实现全国行政村快递全覆盖。" },
+                    { name: "'十四五' 现代物流发展规划（2022）", effect: 0.7125, description: "将快递纳入国家现代流通体系，强化全国一盘棋布局。" },
+                    { name: "快递市场管理办法（2023）", effect: 0.5625, description: "统一规范服务质量、劳动者权益、绿色包装与市场秩序。" },
+                    { name: "'快递进村' 三年行动方案（2023—2025）", effect: 0.7875, description: "明确农村快递建设目标、路径与时间表，落地性极强。" },
+                    { name: "疫情期间邮政快递保通保畅系列政策", effect: 0.6375, description: "国家跨部门统筹，保障民生与物资运输不断链。" },
+                    { name: "深入推进快递包装绿色转型行动方案（2023）", effect: 0.525, description: "全国统一推进绿色包装、减塑与循环快递。" },
+                    { name: "'互联网 +' 高效物流实施意见（2016）", effect: 0.6, description: "推动智能分拣、大数据、无人配送等技术升级。" },
+                    { name: "有效降低全社会物流成本行动方案（2024）", effect: 0.675, description: "国家层面统筹降本增效，提升快递与物流产业链韧性。" }
+                ],
+                "以人民为中心": [
+                    { name: "快递暂行条例（2018，2025 修订）", effect: 0.6, description: "确立普惠城乡服务体系，保护用户权益、规范绿色包装、保障从业人员合法权益。" },
+                    { name: "关于加快农村寄递物流体系建设的意见（2021）", effect: 0.6375, description: "推进快递进村全覆盖，保障农村群众公平享受快递服务，助力共同富裕。" },
+                    { name: "邮政快递业更贴近民生实事（年度系列，2025/2026）", effect: 0.4875, description: "治理农村违规收费、推广隐私运单、畅通 12345 申诉渠道、保护用户信息安全。" },
+                    { name: "快递市场管理办法（2023）", effect: 0.525, description: "保障服务质量，维护用户与快递员合法权益，完善末端公共服务设施配套。" },
+                    { name: "中西部 '快递进村' 邮政兜底专项试点（2026）", effect: 0.5625, description: "国企兜底偏远农村快递，解决市场不愿覆盖区域的用邮难题。" },
+                    { name: "深入推进快递包装绿色转型行动方案（2023）", effect: 0.45, description: "全国统一推进减塑、循环包装，守护群众健康与生活环境。" },
+                    { name: "快递从业人员权益保障系列措施", effect: 0.4875, description: "规范劳动合同与社保、整治随意罚款、建设快递员暖心驿站、保障合理劳动强度。" },
+                    { name: "邮政快递保通保畅与民生保供政策", effect: 0.525, description: "疫情等特殊时期优先保障民生物资配送，守护群众基本生活。" }
+                ],
+                "公有制兜底+企业创新": [
+                    { name: "快递暂行条例（2018，2025 修订）", effect: 0.5625, description: "明确邮政普遍服务兜底，保障民营快递公平发展、技术创新与市场竞争。" },
+                    { name: "邮政普遍服务监督管理办法（2023 修订）", effect: 0.525, description: "国家补贴邮政兜底偏远地区服务，划定专营与市场边界，保障公平竞争。" },
+                    { name: "关于加快农村寄递物流体系建设的意见（2021）", effect: 0.6, description: "邮政兜底农村盲区，支持民企下沉网络，形成 '国企保覆盖、民企提效率'。" },
+                    { name: "国家邮政局关于支持民营快递企业发展的指导意见（2019）", effect: 0.6375, description: "减税降费、优化审批，激发民企创新活力，营造公平竞争环境。" },
+                    { name: "中西部 '快递进村' 邮政兜底专项试点（2026）", effect: 0.5625, description: "邮政网点代收民企快件，破解偏远村屯覆盖难题，邮快合作常态化。" },
+                    { name: "'互联网 +' 高效物流实施意见（2016）", effect: 0.675, description: "支持民企智能分拣、无人配送等技术创新，邮政网络协同保障。" },
+                    { name: "深入推进快递包装绿色转型行动方案（2023）", effect: 0.4875, description: "国企与民企协同推进绿色包装，国家统一标准、财政支持创新。" },
+                    { name: "邮政快递业保通保畅政策（应急类）", effect: 0.525, description: "邮政兜底保基本，民企保运力效率，全国统筹协同不断链。" }
+                ]
+            };
+            
+            // 初始化可用政策
+            function initializeAvailablePolicies() {
+                availablePolicies = {};
+                Object.keys(policies).forEach(category => {
+                    availablePolicies[category] = [...policies[category]];
+                });
+            }
+            
+            // 生成随机政策
+            function generateRandomPolicies() {
+                policyContainer.innerHTML = '';
+                const allPolicies = [];
+                
+                // 从每个板块随机选择一个可用政策
+                Object.keys(availablePolicies).forEach(category => {
+                    const categoryPolicies = availablePolicies[category];
+                    if (categoryPolicies.length > 0) {
+                        const randomIndex = Math.floor(Math.random() * categoryPolicies.length);
+                        const randomPolicy = categoryPolicies[randomIndex];
+                        allPolicies.push({ ...randomPolicy, category });
+                    }
+                });
+                
+                // 生成政策按钮
+                allPolicies.forEach(policy => {
+                    const policyButton = document.createElement('button');
+                    policyButton.className = 'btn btn-outline-primary';
+                    policyButton.style.margin = '5px';
+                    policyButton.style.padding = '10px 15px';
+                    policyButton.style.minWidth = '200px';
+                    policyButton.style.textAlign = 'left';
+                    policyButton.innerHTML = `
+                        <div style="font-weight: bold;">${policy.name}</div>
+                        <div style="font-size: 12px; color: #666;">${policy.description}</div>
+                        <div style="font-size: 12px; color: #28a745; margin-top: 5px;">速度加成: +${policy.effect.toFixed(1)}</div>
+                    `;
+                    
+                    policyButton.addEventListener('click', function() {
+                        if (isRunning) {
+                            // 应用政策效果（调整为与速度单位匹配）
+                            chinaSpeed += policy.effect * 0.001;
+                            selectedPolicies.push(policy);
+                            
+                            // 从可用政策中移除该政策
+                            const categoryPolicies = availablePolicies[policy.category];
+                            const policyIndex = categoryPolicies.findIndex(p => p.name === policy.name);
+                            if (policyIndex > -1) {
+                                categoryPolicies.splice(policyIndex, 1);
+                            }
+                            
+                            // 重新生成政策
+                            generateRandomPolicies();
+                        }
+                    });
+                    
+                    policyContainer.appendChild(policyButton);
+                });
+            }
+            
+            // 计算曲线上的点
+            function getPointOnCurve(progress) {
+                // 贝塞尔曲线参数（使用正确的三次贝塞尔曲线控制点）
+                const startX = 150;
+                const startY = 200;
+                const control1X = 350;
+                const control1Y = 120;
+                const control2X = 650;
+                const control2Y = 280;
+                const endX = 950;
+                const endY = 200;
+                
+                // 三次贝塞尔曲线
+                const t = progress;
+                const oneMinusT = 1 - t;
+                
+                // 计算x坐标
+                const x = oneMinusT * oneMinusT * oneMinusT * startX + 
+                          3 * oneMinusT * oneMinusT * t * control1X + 
+                          3 * oneMinusT * t * t * control2X + 
+                          t * t * t * endX;
+                
+                // 计算y坐标
+                const y = oneMinusT * oneMinusT * oneMinusT * startY + 
+                          3 * oneMinusT * oneMinusT * t * control1Y + 
+                          3 * oneMinusT * t * t * control2Y + 
+                          t * t * t * endY;
+                
+                return { x, y };
+            }
+            
+            // 开始游戏
+            startRaceBtn.addEventListener('click', function() {
+                if (!isRunning) {
+                    isRunning = true;
+                    startRaceBtn.disabled = true;
+                    resetRaceBtn.disabled = false;
+                    initializeAvailablePolicies(); // 初始化可用政策
+                    generateRandomPolicies();
+                    
+                    // 开始动画
+                    gameInterval = setInterval(function() {
+                        // 国外移动
+                        foreignProgress += foreignSpeed;
+                        if (foreignProgress > 1) foreignProgress = 1;
+                        const foreignPoint = getPointOnCurve(foreignProgress);
+                        foreignRunner.style.left = foreignPoint.x + 'px';
+                        foreignRunner.style.top = (foreignPoint.y - 40) + 'px'; // 调整垂直位置
+                        
+                        // 中国移动
+                        chinaProgress += chinaSpeed;
+                        if (chinaProgress > 1) chinaProgress = 1;
+                        const chinaPoint = getPointOnCurve(chinaProgress);
+                        chinaRunner.style.left = chinaPoint.x + 'px';
+                        chinaRunner.style.top = (chinaPoint.y - 40) + 'px'; // 调整垂直位置
+                        
+                        // 检查游戏结束条件
+                        
+                        // 中国到达终点
+                        if (chinaProgress >= 1) {
+                            clearInterval(gameInterval);
+                            isRunning = false;
+                            showGameResult();
+                        }
+                        
+                        // 国外到达终点
+                        if (foreignProgress >= 1) {
+                            clearInterval(gameInterval);
+                            isRunning = false;
+                            showForeignWinResult();
+                        }
+                    }, 50); // 每50毫秒更新一次
+                }
+            });
+            
+            // 重置游戏
+            resetRaceBtn.addEventListener('click', resetRace);
+            
+            function resetRace() {
+                clearInterval(gameInterval);
+                isRunning = false;
+                chinaProgress = 0;
+                foreignProgress = 0.1;
+                chinaSpeed = 0.002;
+                foreignSpeed = 0.003;
+                selectedPolicies = [];
+                availablePolicies = {};
+                
+                // 重置选手位置
+                const chinaStartPoint = getPointOnCurve(0);
+                chinaRunner.style.left = chinaStartPoint.x + 'px';
+                chinaRunner.style.top = (chinaStartPoint.y - 40) + 'px';
+                
+                const foreignStartPoint = getPointOnCurve(0.1);
+                foreignRunner.style.left = foreignStartPoint.x + 'px';
+                foreignRunner.style.top = (foreignStartPoint.y - 40) + 'px';
+                
+                startRaceBtn.disabled = false;
+                resetRaceBtn.disabled = true;
+                policyContainer.innerHTML = '';
+            }
+            
+            // 生成烟花效果
+            function createFireworks() {
+                const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+                
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(() => {
+                        const firework = document.createElement('div');
+                        firework.className = 'firework';
+                        
+                        // 随机位置
+                        const x = Math.random() * window.innerWidth;
+                        const y = Math.random() * window.innerHeight;
+                        
+                        // 随机颜色
+                        const color = colors[Math.floor(Math.random() * colors.length)];
+                        
+                        firework.style.left = x + 'px';
+                        firework.style.top = y + 'px';
+                        firework.style.backgroundColor = color;
+                        
+                        document.body.appendChild(firework);
+                        
+                        // 动画结束后移除
+                        setTimeout(() => {
+                            if (firework.parentNode) {
+                                firework.parentNode.removeChild(firework);
+                            }
+                        }, 1000);
+                    }, i * 100);
+                }
+            }
+            
+            // 显示游戏结果
+            function showGameResult() {
+                // 创建烟花效果
+                createFireworks();
+                
+                // 按板块分组政策
+                const policiesByCategory = {};
+                selectedPolicies.forEach(policy => {
+                    if (!policiesByCategory[policy.category]) {
+                        policiesByCategory[policy.category] = [];
+                    }
+                    policiesByCategory[policy.category].push(policy);
+                });
+                
+                // 生成结果HTML
+                let resultHTML = '<h3>中国超过国外！</h3>';
+                resultHTML += '<h4>已选择的政策：</h4>';
+                
+                Object.keys(policiesByCategory).forEach(category => {
+                    resultHTML += `<h5>${category}</h5>`;
+                    resultHTML += '<ul>';
+                    policiesByCategory[category].forEach(policy => {
+                        resultHTML += `<li>${policy.name} (速度加成: +${policy.effect.toFixed(1)})</li>`;
+                    });
+                    resultHTML += '</ul>';
+                });
+                
+                // 显示弹窗
+                const modal = document.createElement('div');
+                modal.className = 'modal fade show';
+                modal.style.display = 'block';
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.width = '100%';
+                modal.style.height = '100%';
+                modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
+                modal.style.zIndex = '1050';
+                modal.innerHTML = `
+                    <div class="modal-dialog modal-lg" style="margin: 10% auto;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">游戏结果</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ${resultHTML}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="play-again">再玩一次</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                
+                // 关闭弹窗
+                document.getElementById('close-modal').addEventListener('click', function() {
+                    document.body.removeChild(modal);
+                    resetRace();
+                });
+                
+                // 再玩一次
+                document.getElementById('play-again').addEventListener('click', function() {
+                    document.body.removeChild(modal);
+                    resetRace();
+                });
+            }
+            
+            // 显示国外获胜结果
+            function showForeignWinResult() {
+                // 生成结果HTML
+                let resultHTML = '<h3>中国加油！</h3>';
+                resultHTML += '<p>再接再厉，相信我们一定能超越！</p>';
+                resultHTML += '<p>选择更多有效的政策，提升中国的发展速度！</p>';
+                
+                // 显示弹窗
+                const modal = document.createElement('div');
+                modal.className = 'modal fade show';
+                modal.style.display = 'block';
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.width = '100%';
+                modal.style.height = '100%';
+                modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
+                modal.style.zIndex = '1050';
+                modal.innerHTML = `
+                    <div class="modal-dialog modal-lg" style="margin: 10% auto;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">游戏结果</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal-foreign">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ${resultHTML}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="play-again-foreign">再玩一次</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                
+                // 关闭弹窗
+                document.getElementById('close-modal-foreign').addEventListener('click', function() {
+                    document.body.removeChild(modal);
+                    resetRace();
+                });
+                
+                // 再玩一次
+                document.getElementById('play-again-foreign').addEventListener('click', function() {
+                    document.body.removeChild(modal);
+                    resetRace();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
