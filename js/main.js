@@ -234,7 +234,7 @@ function initLycheeGame() {
         ancient: [
             { name: '马车', speed: 40, time: '约15天', description: '古代主要的陆地交通工具，速度较慢', events: ['遇到暴雨，道路泥泞', '驿站补给', '遇到山贼，绕道而行', '顺利通过关卡'] },
             { name: '快马', speed: 80, time: '约7天', description: '古代最快的陆地交通工具，需要驿站换马', events: ['驿站换马', '日夜兼程', '体力透支，短暂休息', '顺利到达'] },
-            { name: '水路+陆路', speed: 60, time: '约10天', description: '先通过水路到广州，再转陆路到西安', events: ['水路航行', '转陆路运输', '遇到风浪', '顺利到达'] }
+            { name: '水路+陆路', speed: 60, time: '约10天', description: '先通过水路到广州，再转陆路到西安', events: ['水路航行', '遇到风浪', '转陆路运输', '顺利到达'] }
         ],
         modern: [
             { name: '快递汽车', speed: 800, time: '约3天', description: '现代公路运输，速度较快', events: ['高速公路行驶', '服务区休息', '遇到交通堵塞', '顺利送达'] },
@@ -278,9 +278,9 @@ function initLycheeGame() {
                     if (transport.name === '快递汽车') {
                         imageSrc = 'images/ancient/6e76225ebc137329ef9c1dbd9ad86446.png';
                     } else if (transport.name === '高铁') {
-                        imageSrc = 'images/ancient/324b9367e053e1b1af6524957e530e7a.png';
-                    } else {
                         imageSrc = 'images/ancient/ec03018086a280afae59ab007174add4.png';
+                    } else {
+                        imageSrc = 'images/ancient/324b9367e053e1b1af6524957e530e7a.png';
                     }
                 }
                 
@@ -332,10 +332,37 @@ function initLycheeGame() {
         });
     });
     
+    // 古代运输方式的随机事件配置（60%概率）
+    const ancientEvents = {
+        '马车': [
+            { name: '暴雨山体滑坡', probability: 0.4, message: '遇到暴雨，道路泥泞，发生山体滑坡，荔枝无法送达！' },
+            { name: '遭遇山贼', probability: 0.4, message: '途中遭遇山贼劫持，荔枝被劫走，无法送达！' }
+        ],
+        '快马': [
+            { name: '人马体力透支', probability: 0.4, message: '快马赶路过于急促，人困马乏，体力透支无法继续前行！' },
+            { name: '马匹受伤', probability: 0.4, message: '马匹在奔跑中受伤，无法继续前进！' }
+        ],
+        '水路+陆路': [
+            { name: '遭遇风浪', probability: 0.4, message: '水路途中遭遇大风浪，船只倾覆，荔枝沉入海中！' }
+        ]
+    };
+    
+    // 检查随机事件
+    function checkRandomEvent(transportName) {
+        const events = ancientEvents[transportName];
+        if (!events) return null;
+        
+        for (const event of events) {
+            if (Math.random() < event.probability) {
+                return event;
+            }
+        }
+        return null;
+    }
+    
     // 运输过程
     function startTransportationProcess() {
         let progress = 0;
-        const totalSteps = 5;
         const stepDuration = 1500;
         const events = selectedTransport.events;
         
@@ -359,9 +386,9 @@ function initLycheeGame() {
             if (selectedTransport.name === '快递汽车') {
                 transportImage = 'images/ancient/6e76225ebc137329ef9c1dbd9ad86446.png';
             } else if (selectedTransport.name === '高铁') {
-                transportImage = 'images/ancient/324b9367e053e1b1af6524957e530e7a.png';
-            } else {
                 transportImage = 'images/ancient/ec03018086a280afae59ab007174add4.png';
+            } else {
+                transportImage = 'images/ancient/324b9367e053e1b1af6524957e530e7a.png';
             }
         }
         
@@ -372,11 +399,11 @@ function initLycheeGame() {
         
         // 运输过程步骤
         const steps = [
-            { message: '开始从海南出发', progress: 20 },
-            { message: events[0], progress: 40 },
-            { message: events[1], progress: 60 },
-            { message: events[2], progress: 80 },
-            { message: events[3], progress: 100 }
+            { message: '开始从海南出发', progress: 20, checkEvent: false },
+            { message: events[0], progress: 40, checkEvent: selectedCharacter === 'ancient' && selectedTransport.name === '水路+陆路' },
+            { message: events[1], progress: 60, checkEvent: selectedCharacter === 'ancient' && selectedTransport.name !== '水路+陆路' },
+            { message: events[2], progress: 80, checkEvent: selectedCharacter === 'ancient' },
+            { message: events[3], progress: 100, checkEvent: false }
         ];
         
         // 执行运输过程
@@ -385,6 +412,20 @@ function initLycheeGame() {
             if (currentStep < steps.length) {
                 const step = steps[currentStep];
                 processMessage.textContent = step.message;
+                
+                // 检查随机事件（仅在古代运输且特定步骤时检查）
+                if (step.checkEvent) {
+                    const randomEvent = checkRandomEvent(selectedTransport.name);
+                    if (randomEvent) {
+                        clearInterval(processInterval);
+                        setTimeout(() => {
+                            alert(randomEvent.message);
+                            transportationProcess.style.display = 'none';
+                            gameIntro.style.display = 'block';
+                        }, 500);
+                        return;
+                    }
+                }
                 
                 // 更新进度条
                 progressBar.style.width = step.progress + '%';
