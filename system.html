@@ -357,7 +357,11 @@
                     { name: "疫情期间邮政快递保通保畅系列政策", effect: 0.6375, description: "国家跨部门统筹，保障民生与物资运输不断链。" },
                     { name: "深入推进快递包装绿色转型行动方案（2023）", effect: 0.525, description: "全国统一推进绿色包装、减塑与循环快递。" },
                     { name: "'互联网 +' 高效物流实施意见（2016）", effect: 0.6, description: "推动智能分拣、大数据、无人配送等技术升级。" },
-                    { name: "有效降低全社会物流成本行动方案（2024）", effect: 0.675, description: "国家层面统筹降本增效，提升快递与物流产业链韧性。" }
+                    { name: "有效降低全社会物流成本行动方案（2024）", effect: 0.675, description: "国家层面统筹降本增效，提升快递与物流产业链韧性。" },
+                    { name: "1990s–2009年（'黑快递'时期）", effect: -0.5, description: "民营快递长期非法，遭邮政专营与行政力量强力压制，行业洗牌。" },
+                    { name: "2005年（价格战开端）", effect: -0.4, description: "圆通为争抢淘宝业务，将快递费从18元砍至12元，开启电商快递低价内卷之路。" },
+                    { name: "2010–2012年（加盟商崩盘潮）", effect: -0.45, description: "深圳DDS快递倒闭、上海CCES崩盘，显示过度依赖加盟扩张的脆弱性。" },
+                    { name: "2019年（极兔搅局，价格战白热化）", effect: -0.35, description: "新玩家极兔以超低价杀入市场，推动行业均价跌破3元，企业普遍陷入亏损边缘。" }
                 ],
                 "以人民为中心": [
                     { name: "快递暂行条例（2018，2025 修订）", effect: 0.6, description: "确立普惠城乡服务体系，保护用户权益、规范绿色包装、保障从业人员合法权益。" },
@@ -367,7 +371,10 @@
                     { name: "中西部 '快递进村' 邮政兜底专项试点（2026）", effect: 0.5625, description: "国企兜底偏远农村快递，解决市场不愿覆盖区域的用邮难题。" },
                     { name: "深入推进快递包装绿色转型行动方案（2023）", effect: 0.45, description: "全国统一推进减塑、循环包装，守护群众健康与生活环境。" },
                     { name: "快递从业人员权益保障系列措施", effect: 0.4875, description: "规范劳动合同与社保、整治随意罚款、建设快递员暖心驿站、保障合理劳动强度。" },
-                    { name: "邮政快递保通保畅与民生保供政策", effect: 0.525, description: "疫情等特殊时期优先保障民生物资配送，守护群众基本生活。" }
+                    { name: "邮政快递保通保畅与民生保供政策", effect: 0.525, description: "疫情等特殊时期优先保障民生物资配送，守护群众基本生活。" },
+                    { name: "2011年（信任危机顶峰）", effect: -0.45, description: "国家邮政局收到快递申诉中，95.3%涉及服务质量问题——丢失、损毁、延误集中爆发。" },
+                    { name: "2025年（安全监管首例立案）", effect: -0.35, description: "韵达因部分加盟商未有效拦截诈骗宣传品，被国家邮政局立案调查。" },
+                    { name: "结构性瓶颈-招工保障", effect: -0.3, description: "快递员招工难、保障缺失，行业发展面临人力困境。" }
                 ],
                 "公有制兜底+企业创新": [
                     { name: "快递暂行条例（2018，2025 修订）", effect: 0.5625, description: "明确邮政普遍服务兜底，保障民营快递公平发展、技术创新与市场竞争。" },
@@ -377,7 +384,10 @@
                     { name: "中西部 '快递进村' 邮政兜底专项试点（2026）", effect: 0.5625, description: "邮政网点代收民企快件，破解偏远村屯覆盖难题，邮快合作常态化。" },
                     { name: "'互联网 +' 高效物流实施意见（2016）", effect: 0.675, description: "支持民企智能分拣、无人配送等技术创新，邮政网络协同保障。" },
                     { name: "深入推进快递包装绿色转型行动方案（2023）", effect: 0.4875, description: "国企与民企协同推进绿色包装，国家统一标准、财政支持创新。" },
-                    { name: "邮政快递业保通保畅政策（应急类）", effect: 0.525, description: "邮政兜底保基本，民企保运力效率，全国统筹协同不断链。" }
+                    { name: "邮政快递业保通保畅政策（应急类）", effect: 0.525, description: "邮政兜底保基本，民企保运力效率，全国统筹协同不断链。" },
+                    { name: "2007年（首现爆仓与加盟制隐患）", effect: -0.4, description: "圆通、申通因业务量暴增而爆仓，暴露加盟模式下总部对末端管控乏力。" },
+                    { name: "2017年（典型网点'倒闭'事件）", effect: -0.45, description: "圆通北京花园桥网点被传倒闭，数万快件无人派送，加盟制风险彻底暴露。" },
+                    { name: "结构性瓶颈-运输挤压", effect: -0.3, description: "过度依赖陆路运输，航空冷链能力不足；即时零售崛起，对传统快递模式形成新挤压。" }
                 ]
             };
             
@@ -407,7 +417,9 @@
                 // 生成政策按钮
                 allPolicies.forEach(policy => {
                     const policyButton = document.createElement('button');
-                    policyButton.className = 'btn btn-outline-primary';
+                    // 根据政策效果设置不同的颜色
+                    const isPositive = policy.effect > 0;
+                    policyButton.className = isPositive ? 'btn btn-outline-primary' : 'btn btn-outline-danger';
                     policyButton.style.margin = '5px';
                     policyButton.style.padding = '10px 15px';
                     policyButton.style.minWidth = '200px';
@@ -415,7 +427,7 @@
                     policyButton.innerHTML = `
                         <div style="font-weight: bold;">${policy.name}</div>
                         <div style="font-size: 12px; color: #666;">${policy.description}</div>
-                        <div style="font-size: 12px; color: #28a745; margin-top: 5px;">速度加成: +${policy.effect.toFixed(1)}</div>
+                        <div style="font-size: 12px; color: ${isPositive ? '#28a745' : '#dc3545'}; margin-top: 5px;">速度变化: ${isPositive ? '+' : ''}${policy.effect.toFixed(1)}</div>
                     `;
                     
                     policyButton.addEventListener('click', function() {
@@ -596,7 +608,8 @@
                     resultHTML += `<h5>${category}</h5>`;
                     resultHTML += '<ul>';
                     policiesByCategory[category].forEach(policy => {
-                        resultHTML += `<li>${policy.name} (速度加成: +${policy.effect.toFixed(1)})</li>`;
+                        const isPositive = policy.effect > 0;
+                        resultHTML += `<li style="color: ${isPositive ? '#28a745' : '#dc3545'};">${policy.name} (速度变化: ${isPositive ? '+' : ''}${policy.effect.toFixed(1)})</li>`;
                     });
                     resultHTML += '</ul>';
                 });
