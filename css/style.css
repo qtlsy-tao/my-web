@@ -475,8 +475,8 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* 响应式设计 */
-@media screen and (max-width: 768px) {
+/* 响应式设计 - 平板端 (768px - 992px) */
+@media screen and (max-width: 992px) {
     .timeline::after {
         left: 31px;
     }
@@ -510,6 +510,356 @@ h1, h2, h3, h4, h5, h6 {
     
     .mb-8 {
         margin-bottom: 40px;
+    }
+    
+    /* 调整三列布局为两列 */
+    .row .col-md-4 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+/* 响应式设计 - 手机端 (<= 768px) */
+@media screen and (max-width: 768px) {
+    /* 全局调整 */
+    body {
+        font-size: 14px;
+    }
+    
+    /* 字体大小调整 */
+    h1 {
+        font-size: 1.8rem !important;
+    }
+    
+    h2 {
+        font-size: 1.4rem !important;
+    }
+    
+    h3 {
+        font-size: 1.2rem !important;
+    }
+    
+    h4 {
+        font-size: 1.1rem;
+    }
+    
+    /* 英雄区调整 */
+    .hero {
+        height: auto;
+        min-height: 60vh;
+        padding: 80px 20px 40px;
+    }
+    
+    /* 导航栏调整 */
+    .navbar-brand {
+        font-size: 1rem;
+    }
+    
+    /* 间距调整 */
+    .py-10 {
+        padding-top: 40px !important;
+        padding-bottom: 40px !important;
+    }
+    
+    .py-5 {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    
+    .mb-8 {
+        margin-bottom: 20px !important;
+    }
+    
+    .mb-6 {
+        margin-bottom: 15px;
+    }
+    
+    .mb-4 {
+        margin-bottom: 10px;
+    }
+    
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    /* 卡片调整 */
+    .card {
+        margin-bottom: 15px;
+        padding: 10px;
+    }
+    
+    .card-body {
+        padding: 15px;
+    }
+    
+    /* 按钮调整 */
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .btn-primary {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+    
+    /* 图片调整 */
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* 表格调整 */
+    table {
+        font-size: 12px;
+    }
+    
+    table th,
+    table td {
+        padding: 8px 4px;
+    }
+    
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* 时间线调整 */
+    .timeline::after {
+        left: 15px;
+    }
+    
+    .timeline-item {
+        width: 100%;
+        padding-left: 45px;
+        padding-right: 15px;
+        padding-bottom: 20px;
+    }
+    
+    .timeline-item::before {
+        left: 35px;
+        border-width: 8px 8px 8px 0;
+    }
+    
+    .left::after,
+    .right::after {
+        left: 2px;
+        width: 20px;
+        height: 20px;
+    }
+    
+    .right {
+        left: 0%;
+    }
+    
+    .timeline-content {
+        padding: 15px;
+    }
+    
+    /* 游戏区域调整 */
+    #game-container {
+        padding: 0 10px;
+    }
+    
+    .character-card {
+        margin-bottom: 15px;
+        max-width: 100%;
+    }
+    
+    .character-image-container .rounded-circle {
+        width: 100px !important;
+        height: 100px !important;
+    }
+    
+    #transportation-options .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    .transportation-card {
+        max-width: 100%;
+    }
+    
+    /* 进度条调整 */
+    .progress {
+        height: 20px;
+    }
+    
+    /* 运输动画调整 */
+    #transportation-animation {
+        height: 150px;
+    }
+    
+    /* 团队成员调整 */
+    .team-member-card {
+        margin-bottom: 20px;
+    }
+    
+    .team-member-img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    /* 统计卡片调整 */
+    .stat-card {
+        padding: 20px 15px;
+        margin-bottom: 15px;
+    }
+    
+    .stat-number {
+        font-size: 28px;
+    }
+    
+    .stat-label {
+        font-size: 14px;
+    }
+    
+    /* 按钮组调整 */
+    .d-flex {
+        flex-direction: column;
+    }
+    
+    .d-flex .btn {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+    }
+    
+    /* 政策按钮调整 */
+    .policy-selection .btn {
+        min-width: 100% !important;
+        margin: 5px 0 !important;
+        text-align: left;
+    }
+    
+    /* 赛道调整 */
+    .race-track {
+        height: 300px !important;
+        border-radius: 30px !important;
+    }
+    
+    /* 页脚调整 */
+    footer {
+        padding: 20px 15px;
+        text-align: center;
+    }
+    
+    footer .row {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    footer .col-md-4 {
+        margin-bottom: 15px;
+    }
+    
+    /* 确保三列布局在手机端堆叠 */
+    .row .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    
+    /* 两列布局堆叠 */
+    .row .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    /* 调整order顺序 */
+    .order-md-2 {
+        order: 2;
+    }
+    
+    .order-md-1 {
+        order: 1;
+    }
+    
+    /* 表单元素调整 */
+    input,
+    textarea {
+        font-size: 14px;
+        padding: 10px;
+    }
+    
+    /* 滚动条优化 */
+    ::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    /* 确保section不会太窄 */
+    section {
+        margin: 10px 0;
+        padding: 15px;
+    }
+    
+    /* 文字对齐调整 */
+    .text-center {
+        text-align: center !important;
+    }
+    
+    /* 隐藏不必要的元素 */
+    .d-none-mobile {
+        display: none;
+    }
+}
+
+/* 响应式设计 - 小屏手机 (<= 480px) */
+@media screen and (max-width: 480px) {
+    /* 进一步缩小字体 */
+    body {
+        font-size: 13px;
+    }
+    
+    h1 {
+        font-size: 1.5rem !important;
+    }
+    
+    h2 {
+        font-size: 1.2rem !important;
+    }
+    
+    h3 {
+        font-size: 1.1rem !important;
+    }
+    
+    /* 英雄区进一步调整 */
+    .hero {
+        min-height: 50vh;
+        padding: 60px 15px 30px;
+    }
+    
+    /* 容器进一步调整 */
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    /* 卡片进一步调整 */
+    .card-body {
+        padding: 10px;
+    }
+    
+    /* 角色卡片图片进一步调整 */
+    .character-image-container .rounded-circle {
+        width: 80px !important;
+        height: 80px !important;
+    }
+    
+    /* 统计卡片进一步调整 */
+    .stat-number {
+        font-size: 24px;
+    }
+    
+    /* 赛道进一步调整 */
+    .race-track {
+        height: 250px !important;
+    }
+    
+    /* 运输动画进一步调整 */
+    #transportation-animation {
+        height: 120px;
     }
 }
 
